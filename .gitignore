@@ -1,0 +1,10 @@
+dist
+node_modules
+.env
+.env.local
+.husky
+
+# VSCode
+.vscode
+
+.DS_Store

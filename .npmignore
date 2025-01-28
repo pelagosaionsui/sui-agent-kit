@@ -1,0 +1,25 @@
+.*.swp
+._*
+.git
+.gitignore
+.hg
+.npmignore
+.npmrc
+.lock-wscript
+.svn
+.wafpickle-*
+.husky
+config.gypi
+CVS
+npm-debug.log
+dist
+node_modules
+
+# Dev usage
+.env
+.env.local
+
+# VSCode
+.vscode
+
+.DS_Store
