@@ -9,6 +9,7 @@
 .svn
 .wafpickle-*
 .husky
+.next
 config.gypi
 CVS
 npm-debug.log
