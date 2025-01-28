@@ -1,6 +1,6 @@
 {
   "name": "@pelagosai/sui-agent-kit",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "description": "AI Agent Kit for Sui Protocols",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,8 +11,7 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "prepare": "husky",
-    "publish": "pnpm publish",
-    "dev": "ts-node src/main.ts"
+    "publish": "pnpm publish"
   },
   "engines": {
     "node": ">=22.0.0",
