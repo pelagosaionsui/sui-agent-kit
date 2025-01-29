@@ -24,8 +24,8 @@ importers:
         specifier: ^13.4.19
         version: 13.5.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@pelagosai/sui-agent-kit':
-        specifier: 0.0.16
-        version: 0.0.16(axios@1.7.4)(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(react@18.3.1)(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: 0.0.20
+        version: 0.0.20(axios@1.7.4)(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(react@18.3.1)(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@supabase/supabase-js':
         specifier: ^2.32.0
         version: 2.48.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -1018,8 +1018,8 @@ packages:
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
     engines: {node: '>=8.0.0'}
 
-  '@pelagosai/sui-agent-kit@0.0.16':
-    resolution: {integrity: sha512-OTqVLJQQscCbvBbhbCoc6UmKG6KzydGeiHzj/ZTQQN4yIWQjhHtplDG0/UJ52rqScO8z6uZOOtOi59ESIM99ag==}
+  '@pelagosai/sui-agent-kit@0.0.20':
+    resolution: {integrity: sha512-Xpx7DPUESKYzxelWS/IoFCmIegGN3vGo/1wR2AjuxyDlJDrkOxBoDWInSY6XOF7imdAqTJB/19CIT0f8K0WAWw==}
     engines: {node: '>=22.0.0', pnpm: '>=8.0.0'}
 
   '@pkgjs/parseargs@0.11.0':
@@ -4363,7 +4363,7 @@ snapshots:
 
   '@opentelemetry/api@1.9.0': {}
 
-  '@pelagosai/sui-agent-kit@0.0.16(axios@1.7.4)(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(react@18.3.1)(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@pelagosai/sui-agent-kit@0.0.20(axios@1.7.4)(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(react@18.3.1)(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
       '@ai-sdk/openai': 1.1.5(zod@3.24.1)
       '@langchain/core': 0.3.36(openai@4.80.1(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1))
