@@ -1,7 +1,6 @@
 import { Action } from "../../types/action";
 import { SuiAgentKit } from "../../agent";
 import { z } from "zod";
-import { getWalletAddress } from "../../tools/agent/get-wallet-address";
 
 const getWalletAddressAction: Action = {
   name: "GET_WALLET_ADDRESS",
@@ -22,7 +21,7 @@ const getWalletAddressAction: Action = {
   schema: z.object({}),
   handler: async (agent: SuiAgentKit) => ({
     status: "success",
-    address: getWalletAddress(agent),
+    address: agent.wallet_address.toSuiAddress(),
   }),
 };
 
