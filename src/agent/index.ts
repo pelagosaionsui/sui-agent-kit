@@ -2,6 +2,7 @@ import { Config } from '../types';
 import { SuiClient, SuiHTTPTransport } from '@mysten/sui/client';
 import { decodeSuiPrivateKey } from '@mysten/sui/cryptography';
 import { Ed25519Keypair, Ed25519PublicKey } from '@mysten/sui/keypairs/ed25519';
+import { getBalance } from '../tools/sui/get-balance';
 
 /**
  * Main class for interacting with Sui blockchain
@@ -49,4 +50,7 @@ export class SuiAgentKit {
     }
   }
 
+  async getBalance(token_address?: string): Promise<number> {
+    return getBalance(this, token_address);
+  }
 }
