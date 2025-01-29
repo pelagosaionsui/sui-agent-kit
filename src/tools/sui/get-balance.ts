@@ -1,5 +1,5 @@
 import { SuiAgentKit } from "../../index";
-import {isValidSuiAddress} from "../../utils/validate-token-address";
+import {isValidSuiTokenAddress} from "../../utils/validate-token-address";
 
 const MIST_PER_SUI = 1000000000;
 
@@ -14,7 +14,7 @@ export async function getBalance(
   token_address?: string,
 ): Promise<number> {
     try {
-        if (!isValidSuiAddress(token_address)) {
+        if (!isValidSuiTokenAddress(token_address)) {
             console.log('No token address provided, defaulting to SUI balance');
             token_address = "0x2::sui::SUI";
         }
