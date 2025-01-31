@@ -1,6 +1,6 @@
 {
   "name": "@pelagosai/sui-agent-kit",
-  "version": "0.0.35",
+  "version": "0.0.38",
   "description": "AI Agent Kit for Sui Protocols",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -38,7 +38,8 @@
     "langchain": "^0.3.8",
     "openai": "^4.77.0",
     "typedoc": "^0.27.6",
-    "zod": "^3.24.1"
+    "zod": "^3.24.1",
+    "@cetusprotocol/aggregator-sdk": "0.3.21"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.6",
