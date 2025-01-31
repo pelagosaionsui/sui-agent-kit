@@ -1,7 +1,6 @@
 import { SuiAgentKit } from "../../index";
 import {isValidSuiTokenAddress} from "../../utils/validate-token-address";
-
-const MIST_PER_SUI = 1000000000;
+import { TOKENS, MIST_PER_SUI } from "../../constants";
 
 /**
  * Get the balance of SUI or specific token for the agent's wallet
@@ -15,8 +14,7 @@ export async function getBalance(
 ): Promise<number> {
     try {
         if (!isValidSuiTokenAddress(token_address)) {
-            console.log('No token address provided, defaulting to SUI balance');
-            token_address = "0x2::sui::SUI";
+            token_address = TOKENS.SUI;
         }
 
         const wallet_address = agent.wallet_address.toSuiAddress();
