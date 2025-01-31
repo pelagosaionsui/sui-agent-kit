@@ -1,5 +1,6 @@
-import { Tool } from "langchain/tools";
+import { Tool } from "langchain/tools"
 import { SuiAgentKit } from '../../agent';
+import { TOKENS } from "../../constants";
 
 export class SuiGetBalanceTool extends Tool {
     name = "sui_balance";
@@ -9,16 +10,23 @@ export class SuiGetBalanceTool extends Tool {
     If no tokenAddress is provided, the balance will be in SUI.
 
     Inputs ( input is a JSON string ):
-    tokenAddress: string, eg "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI" (optional
-    `;
+    tokenAddress: string, eg "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI" (optional)`;
     constructor(private suiAgentKit: SuiAgentKit) {
         super();
     }
 
     protected async _call(input: string): Promise<any> {
         try {
-            const json = JSON.parse(input);
-            const balance = await this.suiAgentKit.getBalance(json.tokenAddress);
+            let tokenAddress = TOKENS.SUI;
+
+            if (input) {
+                const json = JSON.parse(input);
+                tokenAddress = json.tokenAddress;
+            } else {
+                console.log('No token address provided, defaulting to SUI balance')
+            }
+            
+            const balance = await this.suiAgentKit.getBalance(tokenAddress);
 
             return JSON.stringify({
                 status: "success",
@@ -26,7 +34,7 @@ export class SuiGetBalanceTool extends Tool {
                 token: input || "SUI",
             });
         } catch (error: any) {
-            console.error('Error retrieving balance:', error);
+            console.error('Error retrieving balance:', error.message, 'Error stack trace:', error.stack);
 
             return JSON.stringify({
                 status: "error",
