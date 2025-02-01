@@ -1,10 +1,19 @@
 import { AggregatorClient } from "@cetusprotocol/aggregator-sdk"
 import { SuiAgentKit } from "../../agent";
 import { Transaction } from '@mysten/sui/transactions';
-import { CETUS_AGGREGATOR_API, TOKENS, MIST_PER_SUI } from "../../constants"
+import { CETUS_AGGREGATOR_API, TOKENS } from "../../constants"
 import { Env } from "@cetusprotocol/aggregator-sdk"
 import BN from "bn.js";
 
+/**
+ * 
+ * @param agent The SuiAgentKit instance 
+ * @param target The coin type of output coin.
+ * @param amount The amount of input or output,determined byAmountIn
+ * @param from The coin type of input coin.
+ * @param byAmountIn True means fixed the amount of input, false means fixed the amount of output
+ * @returns String indicating the status of the trade
+ */
 export async function trade(
     agent: SuiAgentKit,
     target: string,
@@ -14,12 +23,12 @@ export async function trade(
   ): Promise<string> {
     try {
         const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({coinType: from});
-
+        
         if (!fromCoinAddressMetadata) {
             throw new Error(`Invalid from coin address: ${from}`);
         }
 
-        const total = new BN(amount * (10 ** fromCoinAddressMetadata.decimals));
+        const total = new BN(amount).mul(new BN(10).pow(new BN(fromCoinAddressMetadata.decimals)));
         const aggregatorClient = new AggregatorClient(CETUS_AGGREGATOR_API, agent.wallet_address.toSuiAddress(), agent.suiClient, Env.Mainnet);
 
         const routerRes = await aggregatorClient.findRouters({
