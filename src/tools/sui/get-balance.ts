@@ -13,7 +13,6 @@ export async function getBalance(
   token_address?: string,
 ): Promise<number> {
     try {
-        console.log('fuckkk');
         if (!isValidSuiTokenAddress(token_address)) {
             token_address = TOKENS.SUI;
         }
