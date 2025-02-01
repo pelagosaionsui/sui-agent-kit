@@ -13,6 +13,7 @@ export async function getBalance(
   token_address?: string,
 ): Promise<number> {
     try {
+        console.log('fuckkk');
         if (!isValidSuiTokenAddress(token_address)) {
             token_address = TOKENS.SUI;
         }
@@ -20,8 +21,8 @@ export async function getBalance(
         const wallet_address = agent.wallet_address.toSuiAddress();
         const balanceResponse = await agent.suiClient.getBalance({ owner: wallet_address.toString(), coinType: token_address });
         return Number(balanceResponse.totalBalance) / MIST_PER_SUI;
-    } catch (error) {
-        console.error('Error getting balance:', error);
-        throw error;
+    } catch (error: any) {
+        console.error('Error getting balance:', error.message, 'Error stack trace:', error.stack);
+        throw new Error(`Failed to get balance: ${error.message}`);
     }
 }
