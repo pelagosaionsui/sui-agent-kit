@@ -9,7 +9,7 @@ import { isValidSuiTokenAddress } from "../../utils/validate-token-address";
  * @param {SuiAgentKit} agent - The agent instance containing the wallet and client information.
  * @param {string} to - The recipient's address to which the tokens will be transferred.
  * @param {number} amount - The amount of tokens to transfer.
- * @param {string} [token_address] - The optional token address. If not provided, defaults to SUI token address.
+ * @param {string} [token_address] - The token address to transfer.
  * @returns {Promise<string>} A promise that resolves to a JSON string containing the transfer status and transaction details.
  * @throws {Error} If the token address is invalid, if there is an insufficient balance, or if the transfer fails.
  */
@@ -17,13 +17,9 @@ export async function transfer(
   agent: SuiAgentKit,
   to: string,
   amount: number,
-  token_address?: string,
+  token_address: string,
 ): Promise<string> {
   try {
-    if (token_address === undefined || token_address) {
-        token_address = TOKENS.SUI;
-    }
-    
     if (!isValidSuiTokenAddress(token_address)) {
       throw new Error(`Invalid token address: ${token_address}`);
     }
@@ -83,7 +79,7 @@ async function getCoinsFromWallet(agent: SuiAgentKit, token_address: string, tot
   let nextCursor: string | null | undefined = null;
 
   while (hasNext && totalAmount < total) {
-    const coins = await agent.suiClient.getCoins({ owner: agent.wallet_address.toSuiAddress(), coinType: token_address, cursor: nextCursor });
+    const coins = await agent.suiClient.getCoins({ owner: agent.walletAddress.toSuiAddress(), coinType: token_address, cursor: nextCursor });
 
     coins.data.sort((a, b) => parseInt(b.balance) - parseInt(a.balance));
 

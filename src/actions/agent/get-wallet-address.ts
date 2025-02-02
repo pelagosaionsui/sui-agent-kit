@@ -21,7 +21,7 @@ const getWalletAddressAction: Action = {
   schema: z.object({}),
   handler: async (agent: SuiAgentKit) => ({
     status: "success",
-    address: agent.wallet_address.toSuiAddress(),
+    address: agent.walletAddress.toSuiAddress(),
   }),
 };
 

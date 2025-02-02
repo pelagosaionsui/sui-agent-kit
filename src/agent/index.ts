@@ -19,7 +19,7 @@ import { transfer } from '../tools/sui/transfer';
 export class SuiAgentKit {
   public suiClient: SuiClient;
   public wallet: Ed25519Keypair;
-  public wallet_address: Ed25519PublicKey;
+  public walletAddress: Ed25519PublicKey;
   public config: Config;
 
   constructor(
@@ -42,7 +42,7 @@ export class SuiAgentKit {
 
     const { secretKey } = decodeSuiPrivateKey(private_key);
     this.wallet = Ed25519Keypair.fromSecretKey(secretKey);
-    this.wallet_address = this.wallet.getPublicKey();
+    this.walletAddress = this.wallet.getPublicKey();
 
     // Handle both old and new patterns
     if (typeof configOrKey === 'string' || configOrKey === null) {
@@ -52,15 +52,15 @@ export class SuiAgentKit {
     }
   }
 
-  async getBalance(token_address?: string): Promise<number> {
-    return getBalance(this, token_address);
+  async getBalance(tokenAddress?: string): Promise<number> {
+    return getBalance(this, tokenAddress);
   }
 
   async trade(target: string,  amount: number, from?: string, byAmountIn?: boolean): Promise<string> {
     return trade(this, target, amount, from, byAmountIn);
   }
 
-  async transfer(to: string, amount: number, token_address?: string): Promise<string> {
-    return transfer(this, to, amount, token_address);
+  async transfer(to: string, amount: number, tokenAddress: string): Promise<string> {
+    return transfer(this, to, amount, tokenAddress);
   }
 }

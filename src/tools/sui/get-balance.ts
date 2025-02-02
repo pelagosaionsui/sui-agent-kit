@@ -3,22 +3,24 @@ import {isValidSuiTokenAddress} from "../../utils/validate-token-address";
 import { TOKENS, MIST_PER_SUI } from "../../constants";
 
 /**
- * Get the balance of SUI or specific token for the agent's wallet
- * @param agent The SuiAgentKit instance
- * @param token_address The specific token address. If not provided, the balance of SUI will be returned
- * @returns The balance of the token
+ * Retrieves the balance of a specified token for a given agent.
+ *
+ * @param agent - The SuiAgentKit instance containing the wallet and client information.
+ * @param tokenAddress - (Optional) The address of the token to check the balance for. Defaults to SUI token if not provided or invalid.
+ * @returns A promise that resolves to the balance of the specified token in SUI.
+ * @throws Will throw an error if the balance retrieval fails.
  */
 export async function getBalance(
   agent: SuiAgentKit,
-  token_address?: string,
+  tokenAddress?: string,
 ): Promise<number> {
     try {
-        if (!isValidSuiTokenAddress(token_address)) {
-            token_address = TOKENS.SUI;
+        if (!isValidSuiTokenAddress(tokenAddress)) {
+            tokenAddress = TOKENS.SUI;
         }
 
-        const wallet_address = agent.wallet_address.toSuiAddress();
-        const balanceResponse = await agent.suiClient.getBalance({ owner: wallet_address.toString(), coinType: token_address });
+        const walletAddress = agent.walletAddress.toSuiAddress();
+        const balanceResponse = await agent.suiClient.getBalance({ owner: walletAddress.toString(), coinType: tokenAddress });
         return Number(balanceResponse.totalBalance) / MIST_PER_SUI;
     } catch (error: any) {
         console.error('Error getting balance:', error.message, 'Error stack trace:', error.stack);
