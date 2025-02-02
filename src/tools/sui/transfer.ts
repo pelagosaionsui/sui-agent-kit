@@ -1,6 +1,5 @@
 import { SuiAgentKit } from "../../index";
 import { Transaction } from '@mysten/sui/transactions';
-import { TOKENS } from "../../constants";
 import { isValidSuiTokenAddress } from "../../utils/validate-token-address";
 
 /**
