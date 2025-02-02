@@ -31,7 +31,7 @@ export async function trade(
         }
 
         const total = new BN(amount * (10 ** fromCoinAddressMetadata.decimals));
-        const aggregatorClient = new AggregatorClient(CETUS_AGGREGATOR_API, agent.wallet_address.toSuiAddress(), agent.suiClient, Env.Mainnet);
+        const aggregatorClient = new AggregatorClient(CETUS_AGGREGATOR_API, agent.walletAddress.toSuiAddress(), agent.suiClient, Env.Mainnet);
 
         const routerRes = await aggregatorClient.findRouters({
             from,

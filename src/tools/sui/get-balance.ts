@@ -19,7 +19,7 @@ export async function getBalance(
             tokenAddress = TOKENS.SUI;
         }
 
-        const walletAddress = agent.wallet_address.toSuiAddress();
+        const walletAddress = agent.walletAddress.toSuiAddress();
         const balanceResponse = await agent.suiClient.getBalance({ owner: walletAddress.toString(), coinType: tokenAddress });
         return Number(balanceResponse.totalBalance) / MIST_PER_SUI;
     } catch (error: any) {

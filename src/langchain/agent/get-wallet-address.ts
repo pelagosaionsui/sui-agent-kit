@@ -9,6 +9,6 @@ export class SuiGetWalletAddressTool extends Tool {
     }
 
     async _call(_input: string): Promise<string> {
-        return this.suiAgentKit.wallet_address.toSuiAddress();
+        return this.suiAgentKit.walletAddress.toSuiAddress();
     }
 }

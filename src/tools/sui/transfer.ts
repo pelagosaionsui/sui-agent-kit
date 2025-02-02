@@ -79,7 +79,7 @@ async function getCoinsFromWallet(agent: SuiAgentKit, token_address: string, tot
   let nextCursor: string | null | undefined = null;
 
   while (hasNext && totalAmount < total) {
-    const coins = await agent.suiClient.getCoins({ owner: agent.wallet_address.toSuiAddress(), coinType: token_address, cursor: nextCursor });
+    const coins = await agent.suiClient.getCoins({ owner: agent.walletAddress.toSuiAddress(), coinType: token_address, cursor: nextCursor });
 
     coins.data.sort((a, b) => parseInt(b.balance) - parseInt(a.balance));
 
