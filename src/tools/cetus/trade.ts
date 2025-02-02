@@ -54,14 +54,21 @@ export async function trade(
             let result = await aggregatorClient.devInspectTransactionBlock(routerTx)
 
             if (result.effects.status.status === "success") {
-                await aggregatorClient.signAndExecuteTransaction(routerTx, agent.wallet)
-                return "Trade executed successfully";
+                const result = await aggregatorClient.signAndExecuteTransaction(routerTx, agent.wallet)
+                return JSON.stringify({
+                    status: "success",
+                    message: "Trade completed successfully",
+                    transaction: result.transaction,
+                });
             } else {
-                console.error("Transaction failed")
-                throw new Error("Trade failed. Cetus aggregator client failed to execute transaction")
+                const errorMessage = "Trade failed. Cetus aggregator client failed to execute transaction";
+                console.error(errorMessage);
+                throw new Error(errorMessage);
             }
         } else {
-            return "Trade failed. Cetus aggregator client could not find routers";
+            const errorMessage = "Trade failed. Cetus aggregator client could not find routers";
+            console.error(errorMessage);
+            throw new Error(errorMessage);
         }
     } catch (error: any) {
         console.error('Error trading:', error.message, 'Error stack trace:', error.stack);
