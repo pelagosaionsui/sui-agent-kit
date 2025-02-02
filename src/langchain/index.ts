@@ -7,13 +7,15 @@ import type { SuiAgentKit } from "../agent";
 import {
     SuiGetWalletAddressTool,
     SuiGetBalanceTool,
-    SuiTradeTool
+    SuiTradeTool,
+    SuiTransferTool
 } from "./index";
 
 export function createSuiTools(suiAgentKit: SuiAgentKit) {
   return [
     new SuiGetWalletAddressTool(suiAgentKit),
     new SuiGetBalanceTool(suiAgentKit),
-    new SuiTradeTool(suiAgentKit)
+    new SuiTradeTool(suiAgentKit),
+    new SuiTransferTool(suiAgentKit),
   ];
 }
