@@ -1,7 +1,5 @@
 import { Tool } from "langchain/tools"
 import { SuiAgentKit } from '../../agent';
-import { TOKENS } from "../../constants";
-
 
 export class SuiTransferTool extends Tool {
     name = "sui_transfer";
@@ -10,7 +8,11 @@ export class SuiTransferTool extends Tool {
     Inputs (input is a JSON string):
     - to: string, the recipient's wallet address. Example: "0x12fefd0c521cb04e42646034af7812229c44789583a22a358f0f9430fb348990" (required)
     - amount: number, the amount of tokens to send. Example: 1 (required)
-    - tokenAddress: string, the type of token. If not specified, defaults to "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI". Example: "0xf22da9a24ad027cccb5f2d496cbe91de953d363513db08a3a734d361c7c17503::LOFI::LOFI"`;
+    - tokenAddress: string, the type of token. Example: "0xf22da9a24ad027cccb5f2d496cbe91de953d363513db08a3a734d361c7c17503::LOFI::LOFI (required)"
+    
+    DO NOT UNDER ANY CIRCUMSTANCES STRAY FROM THE INPUT FORMAT
+    CONVERT YOUR INPUT WITH INPUT FORMAT AND PARAMS IN THE EXACT ORDER
+    `;
 
     constructor(private suiAgentKit: SuiAgentKit) {
         super();
@@ -19,16 +21,15 @@ export class SuiTransferTool extends Tool {
     protected async _call(input: string): Promise<string> {
         try {
             const parsedInput = JSON.parse(input);
-            const tokenAddress = parsedInput.tokenAddress || TOKENS.SUI;
 
-            const tx = await this.suiAgentKit.transfer(parsedInput.to, parsedInput.amount, tokenAddress);
-            
+            const tx = await this.suiAgentKit.transfer(parsedInput.to, parsedInput.amount, parsedInput.tokenAddress);
+
             return JSON.stringify({
               status: "success",
               message: "Transfer completed successfully",
               amount: parsedInput.amount,
               recipient: parsedInput.to,
-              token: tokenAddress || "SUI",
+              token: parsedInput.tokenAddress || "SUI",
               transaction: tx,
             });
           } catch (error: any) {

@@ -6,13 +6,15 @@ import { Env } from "@cetusprotocol/aggregator-sdk"
 import BN from "bn.js";
 
 /**
- * 
- * @param agent The SuiAgentKit instance 
- * @param target The coin type of output coin.
- * @param amount The amount of input or output,determined byAmountIn
- * @param from The coin type of input coin.
- * @param byAmountIn True means fixed the amount of input, false means fixed the amount of output
- * @returns String indicating the status of the trade
+ * Executes a trade using the Cetus aggregator client.
+ *
+ * @param {SuiAgentKit} agent - The Sui agent kit instance.
+ * @param {string} target - The target coin type to trade to.
+ * @param {number} amount - The amount to trade.
+ * @param {string} [from=TOKENS.SUI] - The source coin type to trade from. Defaults to SUI.
+ * @param {boolean} [byAmountIn=true] - True means fixed the amount of input, false means fixed the amount of output
+ * @returns {Promise<string>} - A promise that resolves to a success message or throws an error if the trade fails.
+ * @throws {Error} - Throws an error if the trade fails.
  */
 export async function trade(
     agent: SuiAgentKit,
@@ -28,7 +30,7 @@ export async function trade(
             throw new Error(`Invalid from coin address: ${from}`);
         }
 
-        const total = new BN(amount).mul(new BN(10).pow(new BN(fromCoinAddressMetadata.decimals)));
+        const total = new BN(amount * (10 ** fromCoinAddressMetadata.decimals));
         const aggregatorClient = new AggregatorClient(CETUS_AGGREGATOR_API, agent.wallet_address.toSuiAddress(), agent.suiClient, Env.Mainnet);
 
         const routerRes = await aggregatorClient.findRouters({

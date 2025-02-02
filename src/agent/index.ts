@@ -60,7 +60,7 @@ export class SuiAgentKit {
     return trade(this, target, amount, from, byAmountIn);
   }
 
-  async transfer(to: string, amount: number, token_address?: string): Promise<string> {
+  async transfer(to: string, amount: number, token_address: string): Promise<string> {
     return transfer(this, to, amount, token_address);
   }
 }
