@@ -8,7 +8,7 @@ import { isValidSuiTokenAddress } from "../../utils/validate-token-address";
  * @param {SuiAgentKit} agent - The agent instance containing the wallet and client information.
  * @param {string} to - The recipient's address to which the tokens will be transferred.
  * @param {number} amount - The amount of tokens to transfer.
- * @param {string} [token_address] - The token address to transfer.
+ * @param {string} [tokenAddress] - The token address to transfer.
  * @returns {Promise<string>} A promise that resolves to a JSON string containing the transfer status and transaction details.
  * @throws {Error} If the token address is invalid, if there is an insufficient balance, or if the transfer fails.
  */
@@ -16,26 +16,26 @@ export async function transfer(
   agent: SuiAgentKit,
   to: string,
   amount: number,
-  token_address: string,
+  tokenAddress: string,
 ): Promise<string> {
   try {
-    if (!isValidSuiTokenAddress(token_address)) {
-      throw new Error(`Invalid token address: ${token_address}`);
+    if (!isValidSuiTokenAddress(tokenAddress)) {
+      throw new Error(`Invalid token address: ${tokenAddress}`);
     }
 
-    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({coinType: token_address});
+    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({coinType: tokenAddress});
 
     if (!fromCoinAddressMetadata) {
-        throw new Error(`Invalid from coin address: ${token_address}`);
+        throw new Error(`Invalid from coin address: ${tokenAddress}`);
     }
 
     const total = BigInt(amount) * (BigInt(10) ** BigInt(fromCoinAddressMetadata.decimals));
 
     // Get coins from the wallet
-    const selectedCoins = await getCoinsFromWallet(agent, token_address, total);
+    const selectedCoins = await getCoinsFromWallet(agent, tokenAddress, total);
 
     if (!selectedCoins.length) {
-        throw new Error(`Insufficient balance of ${token_address}`);
+        throw new Error(`Insufficient balance of ${tokenAddress}`);
     }
 
     // Process coins including merge and split
@@ -64,8 +64,8 @@ export async function transfer(
   }
 }
 
-// Private helper function to get coins from the wallet
-async function getCoinsFromWallet(agent: SuiAgentKit, token_address: string, total: bigint) {
+// Helper function to get coins from the wallet
+export async function getCoinsFromWallet(agent: SuiAgentKit, token_address: string, total: bigint) {
   const selectedCoins: {
     objectId: string;
     digest: string;
