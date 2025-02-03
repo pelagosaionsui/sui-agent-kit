@@ -21,8 +21,6 @@ export class SuiStakeTool extends Tool {
         try {
         const parsedInput = JSON.parse(input);
 
-        console.log(parsedInput);
-
         const tx = await this.suiAgentKit.stake(parsedInput.amount, parsedInput.lstTokenAddress);
 
         return JSON.stringify({

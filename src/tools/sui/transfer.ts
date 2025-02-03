@@ -64,8 +64,8 @@ export async function transfer(
   }
 }
 
-// Helper function to get coins from the wallet
-export async function getCoinsFromWallet(agent: SuiAgentKit, token_address: string, total: bigint) {
+// Private helper function to get coins from the wallet
+async function getCoinsFromWallet(agent: SuiAgentKit, token_address: string, total: bigint) {
   const selectedCoins: {
     objectId: string;
     digest: string;
