@@ -8,7 +8,8 @@ import {
     SuiGetWalletAddressTool,
     SuiGetBalanceTool,
     SuiTradeTool,
-    SuiTransferTool
+    SuiTransferTool,
+    SuiStakeTool
 } from "./index";
 
 export function createSuiTools(suiAgentKit: SuiAgentKit) {
@@ -17,5 +18,6 @@ export function createSuiTools(suiAgentKit: SuiAgentKit) {
     new SuiGetBalanceTool(suiAgentKit),
     new SuiTradeTool(suiAgentKit),
     new SuiTransferTool(suiAgentKit),
+    new SuiStakeTool(suiAgentKit),
   ];
 }

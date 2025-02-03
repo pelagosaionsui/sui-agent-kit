@@ -2,9 +2,7 @@ import { Config } from '../types';
 import { SuiClient, SuiHTTPTransport } from '@mysten/sui/client';
 import { decodeSuiPrivateKey } from '@mysten/sui/cryptography';
 import { Ed25519Keypair, Ed25519PublicKey } from '@mysten/sui/keypairs/ed25519';
-import { getBalance } from '../tools/sui';
-import { trade } from '../tools/cetus/trade';
-import { transfer } from '../tools/sui/transfer';
+import { getBalance, trade, transfer, stake } from '../tools';
 
 /**
  * Main class for interacting with Sui blockchain
@@ -62,5 +60,9 @@ export class SuiAgentKit {
 
   async transfer(to: string, amount: number, tokenAddress: string): Promise<string> {
     return transfer(this, to, amount, tokenAddress);
+  }
+
+  async stake(amount: number, tokenAddress: string): Promise<string> {
+    return stake(this, amount, tokenAddress);
   }
 }
