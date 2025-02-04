@@ -36,7 +36,7 @@ code {
   text-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
 }
 
-.bg-[#25252d] {
+.bg-dark {
   background: rgba(37, 37, 45, 0.8);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(168, 85, 247, 0.2);
