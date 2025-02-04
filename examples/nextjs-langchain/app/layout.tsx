@@ -40,7 +40,10 @@ export default function RootLayout({
         <meta name="twitter:image" content="/images/title-card.png" />
       </head>
       <body className={spaceGrotesk.className}>
-        <div className="flex flex-col p-4 md:p-12 h-[100vh]">{children}</div>
+        <div className="fixed inset-0 bg-gradient-to-br from-primary-900/20 to-primary-600/10 animate-gradient"></div>
+        <div className="flex flex-col p-4 md:p-12 h-[100vh] relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );
