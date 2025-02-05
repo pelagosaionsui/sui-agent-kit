@@ -1,7 +1,7 @@
 import { LstClient, LIQUID_STAKING_INFO_MAP, LstId, LiquidStakingObjectInfo } from "@suilend/springsui-sdk"
 import { SuiAgentKit } from "../../agent";
 import { Transaction } from '@mysten/sui/transactions';
-import { MIST_PER_SUI } from "../../constants";
+import { MIST_PER_SUI, SUIVISION_URL } from "../../constants";
 
 /**
  * Stakes a specified amount of tokens using the provided SuiAgentKit.
@@ -50,7 +50,7 @@ export async function stake(
 
           return JSON.stringify({
             status: "success",
-            message: "Stake completed successfully",
+            message: `Stake completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL+result.digest}`,
             transaction: result.transaction,
           });
     } catch (error: any) {
