@@ -1,6 +1,8 @@
 import { SuiAgentKit } from "../../index";
 import { Transaction } from '@mysten/sui/transactions';
 import { isValidSuiTokenAddress } from "../../utils/validate-token-address";
+import { getCoinsFromWallet } from "../../utils/get-coins-from-wallet";
+import { SUIVISION_URL } from "../../constants";
 
 /**
  * Transfers a specified amount of tokens from the agent's wallet to a recipient address.
@@ -40,14 +42,13 @@ export async function transfer(
 
     // Process coins including merge and split
     const tx = new Transaction();
-    const coins = selectedCoins.map((coin) => coin.objectId);
-    const coinObjects = coins.map((coin) => tx.object(coin));
+    const coinObjects = selectedCoins.map((coin) => tx.object(coin.objectId));
 
     if (coinObjects.length > 1) {
-        tx.mergeCoins(tx.object(coinObjects[0]), coinObjects.slice(1));
+        tx.mergeCoins(coinObjects[0], coinObjects.slice(1));
     }
 
-    const splitedCoins = tx.splitCoins(tx.object(coinObjects[0]), [total]);
+    const splitedCoins = tx.splitCoins(coinObjects[0], [total]);
     
     // Transfer coins to the recipient
     tx.transferObjects([splitedCoins[0]], to);
@@ -55,49 +56,11 @@ export async function transfer(
     
     return JSON.stringify({
       status: "success",
-      message: "Transfer completed successfully",
+      message: `Transfer completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL+result.digest}`,
       transaction: result.transaction,
     });
   } catch (error: any) {
     console.error('Error transferring:', error.message, 'Error stack trace:', error.stack);
     throw new Error(`Failed to transfer: ${error.message}`);
   }
-}
-
-// Private helper function to get coins from the wallet
-async function getCoinsFromWallet(agent: SuiAgentKit, token_address: string, total: bigint) {
-  const selectedCoins: {
-    objectId: string;
-    digest: string;
-    version: string;
-    balance: string;
-  }[] = [];
-  
-  let totalAmount = BigInt(0);
-  let hasNext = true;
-  let nextCursor: string | null | undefined = null;
-
-  while (hasNext && totalAmount < total) {
-    const coins = await agent.suiClient.getCoins({ owner: agent.walletAddress.toSuiAddress(), coinType: token_address, cursor: nextCursor });
-
-    coins.data.sort((a, b) => parseInt(b.balance) - parseInt(a.balance));
-
-    for (const coinData of coins.data) {
-      selectedCoins.push({
-        objectId: coinData.coinObjectId,
-        digest: coinData.digest,
-        version: coinData.version,
-        balance: coinData.balance,
-      });
-      totalAmount += BigInt(coinData.balance);
-      if (totalAmount >= total) {
-        break;
-      }
-    }
-
-    nextCursor = coins.nextCursor;
-    hasNext = coins.hasNextPage;
-  }
-
-  return selectedCoins;
 }

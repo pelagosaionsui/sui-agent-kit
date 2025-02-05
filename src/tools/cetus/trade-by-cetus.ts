@@ -1,7 +1,7 @@
 import { AggregatorClient } from "@cetusprotocol/aggregator-sdk"
 import { SuiAgentKit } from "../../agent";
 import { Transaction } from '@mysten/sui/transactions';
-import { CETUS_AGGREGATOR_API, TOKENS } from "../../constants"
+import { CETUS_AGGREGATOR_API, SUIVISION_URL, TOKENS } from "../../constants"
 import { Env } from "@cetusprotocol/aggregator-sdk"
 import BN from "bn.js";
 
@@ -16,7 +16,7 @@ import BN from "bn.js";
  * @returns {Promise<string>} - A promise that resolves to a success message or throws an error if the trade fails.
  * @throws {Error} - Throws an error if the trade fails.
  */
-export async function trade(
+export async function tradeByCetus(
     agent: SuiAgentKit,
     target: string,
     amount: number,
@@ -57,7 +57,7 @@ export async function trade(
                 const result = await aggregatorClient.signAndExecuteTransaction(routerTx, agent.wallet)
                 return JSON.stringify({
                     status: "success",
-                    message: "Trade completed successfully",
+                    message: `Trade completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL+result.digest}`,
                     transaction: result.transaction,
                 });
             } else {
