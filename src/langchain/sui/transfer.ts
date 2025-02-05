@@ -28,7 +28,7 @@ export class SuiTransferTool extends Tool {
               status: "success",
               message: "Transfer completed successfully",
               amount: parsedInput.amount,
-              recipient: parsedInput.to,
+              to: parsedInput.to,
               token: parsedInput.tokenAddress || "SUI",
               transaction: tx,
             });
