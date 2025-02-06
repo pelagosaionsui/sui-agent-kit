@@ -8,16 +8,7 @@ import {
 import { Transaction } from '@mysten/sui/transactions';
 import { SUIVISION_URL } from "../../constants";
 
-/**
- * Borrow assets using Suilend.
- *
- * @param agent - The SuiAgentKit instance.
- * @param coinType - The type of coin to borrow.
- * @param amount - The amount of the coin to borrow.
- * @returns A promise that resolves to a string containing the transaction details.
- * @throws Will throw an error if the borrowing process fails.
- */
-export async function borrowBySuilend(
+export async function withdrawBySuilend(
     agent: SuiAgentKit,
     coinType: string,
     amount: number,
@@ -53,7 +44,7 @@ export async function borrowBySuilend(
 
         const tx = new Transaction();
 
-        await suilendClient.borrowAndSendToUser(
+        await suilendClient.withdrawAndSendToUser(
             agent.walletAddress.toSuiAddress(),
             obligationOwnerCaps[0].id,
             obligations[0].id,
@@ -66,11 +57,11 @@ export async function borrowBySuilend(
 
         return JSON.stringify({
             status: "success",
-            message: `Borrow completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL+result.digest}`,
+            message: `Withdraw completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL+result.digest}`,
             transaction: result.transaction,
         });
     } catch (error: any) {
-        console.error('Error borrowing:', error.message, 'Error stack trace:', error.stack);
-        throw new Error(`Failed to borrow: ${error.message}`);
+        console.error('Error withdrawing:', error.message, 'Error stack trace:', error.stack);
+        throw new Error(`Failed to withdraw: ${error.message}`);
     }
 }
