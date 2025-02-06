@@ -1,25 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ChatOpenAI } from "@langchain/openai";
+import { ChatDeepSeek } from "@langchain/deepseek";
 import { MemorySaver } from "@langchain/langgraph";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { SuiAgentKit, createSuiTools } from "@pelagosai/sui-agent-kit";
 
-const llm = new ChatOpenAI({
+const llmOpenai = new ChatOpenAI({
     temperature: 0.7,
     model: "gpt-4o-mini",
 });
 
+// If you have a Deepseek API key, you can use the Deepseek model instead
+
+// const llmDeepseek = new ChatDeepSeek({
+//   model: "deepseek-reasoner",
+//   temperature: 0.3,
+//   apiKey: process.env.DEEPSEEK_API_KEY,
+// });
+
+const config = {
+  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY,
+}
+
 const suiAgent = new SuiAgentKit(
     process.env.SUI_PRIVATE_KEY!,
     process.env.RPC_URL!,
-    process.env.OPENAI_API_KEY!,
+    config,
 )
 
 const tools = createSuiTools(suiAgent);
 const memory = new MemorySaver();
 
 const agent = createReactAgent({
-    llm,
+    llm: llmOpenai, // or llmDeepseek
     tools,
     checkpointSaver: memory,
     messageModifier: `
