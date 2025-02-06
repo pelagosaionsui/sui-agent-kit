@@ -1,42 +1,28 @@
-import { NextRequest, NextResponse } from "next/server";
-import { ChatOpenAI } from "@langchain/openai";
-import { ChatDeepSeek } from "@langchain/deepseek";
-import { MemorySaver } from "@langchain/langgraph";
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { SuiAgentKit, createSuiTools } from "@pelagosai/sui-agent-kit";
+import { NextRequest, NextResponse } from 'next/server';
+import { ChatOpenAI } from '@langchain/openai';
+import { MemorySaver } from '@langchain/langgraph';
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { SuiAgentKit, createSuiTools } from '@pelagosai/sui-agent-kit';
 
-const llmOpenai = new ChatOpenAI({
-    temperature: 0.7,
-    model: "gpt-4o-mini",
+const llm = new ChatOpenAI({
+  temperature: 0.7,
+  model: 'gpt-4o-mini',
 });
 
-// If you have a Deepseek API key, you can use the Deepseek model instead
-
-// const llmDeepseek = new ChatDeepSeek({
-//   model: "deepseek-reasoner",
-//   temperature: 0.3,
-//   apiKey: process.env.DEEPSEEK_API_KEY,
-// });
-
-const config = {
-  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-  DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY,
-}
-
 const suiAgent = new SuiAgentKit(
-    process.env.RPC_URL!,
-    config,
-    process.env.SUI_PRIVATE_KEY!,
-)
+  process.env.RPC_URL!,
+  process.env.OPENAI_API_KEY!
+);
 
 const tools = createSuiTools(suiAgent);
 const memory = new MemorySaver();
 
 const agent = createReactAgent({
-    llm: llmOpenai, // or llmDeepseek
-    tools,
-    checkpointSaver: memory,
-    messageModifier: `
+  llm,
+  // @ts-ignore
+  tools,
+  checkpointSaver: memory,
+  messageModifier: `
         You are a helpful agent that can interact onchain using the Sui Agent Kit. You are
         empowered to interact onchain using your tools. If you ever need funds, you can request them from the
         faucet. If not, you can provide your wallet details and request funds from the user. If there is a 5XX
@@ -71,6 +57,27 @@ export async function POST(req: NextRequest) {
           if (event === 'on_chat_model_stream') {
             if (data.chunk.content) {
               controller.enqueue(textEncoder.encode(data.chunk.content));
+            }
+          } else if (event === 'on_tool_end') {
+            // send tool message
+            try {
+              const toolMessage = data.output;
+              const content = JSON.parse(toolMessage.content);
+              const transaction = JSON.parse(content.transaction);
+              if (transaction.txBytes) {
+                // Send special message to trigger wallet signing
+                controller.enqueue(
+                  textEncoder.encode(
+                    JSON.stringify({
+                      type: 'tool_response',
+                      output: toolMessage,
+                      txBytes: transaction.txBytes,
+                    })
+                  )
+                );
+              }
+            } catch (e) {
+              console.error('Error processing tool message:', e);
             }
           }
         }

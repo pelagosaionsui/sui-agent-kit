@@ -2,9 +2,19 @@ import { Config } from '../types';
 import { SuiClient, SuiHTTPTransport } from '@mysten/sui/client';
 import { decodeSuiPrivateKey } from '@mysten/sui/cryptography';
 import { Ed25519Keypair, Ed25519PublicKey } from '@mysten/sui/keypairs/ed25519';
-import { getBalance, tradeByCetus, tradeByNavi, transfer, stakeBySpringsui, depositBySuilend, borrowBySuilend } from '../tools';
+import {
+  getBalance,
+  tradeByCetus,
+  tradeByNavi,
+  transfer,
+  stakeBySpringsui,
+  depositBySuilend,
+  borrowBySuilend,
+} from '../tools';
 import { withdrawBySuilend } from '../tools/suilend/withdraw-by-suilend';
 import { repayBySuilend } from '../tools/suilend/repay-by-suilend';
+import { WalletContextState } from '@suiet/wallet-kit';
+import { isValidSuiAddress } from '../utils/validate-token-address';
 
 /**
  * Main class for interacting with Sui blockchain
@@ -12,63 +22,88 @@ import { repayBySuilend } from '../tools/suilend/repay-by-suilend';
  *
  * @class SuiAgentKit
  * @constructor
- * @param {string} private_key - Private key of the agent
- * @param {string} rpc_url - RPC URL of the SUI network
+ * @param {string} privateKey - Private key of the agent
+ * @param {string} rpcUrl - RPC URL of the SUI network
  * @param {Config | string | null} configOrKey - Configuration object or OpenAI API key
  */
 export class SuiAgentKit {
   public suiClient: SuiClient;
-  public wallet: Ed25519Keypair;
-  public walletAddress: Ed25519PublicKey;
+  public keypair?: Ed25519Keypair;
+  public walletState?: WalletContextState;
+  public walletAddress?: string;
   public config: Config;
 
   constructor(
-    private_key: string,
-    rpc_url: string,
-    openai_api_key: string | null
-  );
-  constructor(private_key: string, rpc_url: string, config: Config);
-  constructor(
-    private_key: string,
-    rpc_url: string,
-    configOrKey: Config | string | null
+    rpcUrl: string,
+    configOrKey: string | null | Config,
+    privateKey?: string
   ) {
     this.suiClient = new SuiClient({
       transport: new SuiHTTPTransport({
-        url: rpc_url,
+        url: rpcUrl,
         fetch: fetch,
       }),
     });
 
-    const { secretKey } = decodeSuiPrivateKey(private_key);
-    this.wallet = Ed25519Keypair.fromSecretKey(secretKey);
-    this.walletAddress = this.wallet.getPublicKey();
-
-    // Handle both old and new patterns
     if (typeof configOrKey === 'string' || configOrKey === null) {
       this.config = { OPENAI_API_KEY: configOrKey || '' };
     } else {
       this.config = configOrKey;
     }
+
+    if (privateKey) {
+      const { secretKey } = decodeSuiPrivateKey(privateKey);
+      this.keypair = Ed25519Keypair.fromSecretKey(secretKey);
+      this.walletAddress = `0x${Buffer.from(this.keypair.getPublicKey().toRawBytes()).toString('hex')}`;
+    }
+  }
+
+  setWalletAddress(walletAddress: string) {
+    if (!isValidSuiAddress(walletAddress)) {
+      throw new Error(`Invalid Wallet Address: ${walletAddress}`);
+    }
+    try {
+      this.walletAddress = walletAddress;
+    } catch (e: any) {
+      console.error('Failed to set wallet address: ', e);
+      return false;
+    }
+    return true;
   }
 
   async getBalance(tokenAddress?: string): Promise<number> {
     return getBalance(this, tokenAddress);
   }
 
-  async tradeByCetus(target: string,  amount: number, from?: string, byAmountIn?: boolean): Promise<string> {
+  async tradeByCetus(
+    target: string,
+    amount: number,
+    from?: string,
+    byAmountIn?: boolean
+  ): Promise<string> {
     return tradeByCetus(this, target, amount, from, byAmountIn);
   }
 
-  async tradeByNavi(target: string,  amount: number, from?: string): Promise<string> {
+  async tradeByNavi(
+    target: string,
+    amount: number,
+    from?: string
+  ): Promise<string> {
     return tradeByNavi(this, target, amount, from);
   }
 
-  async transfer(to: string, amount: number, tokenAddress: string): Promise<string> {
+  async transfer(
+    to: string,
+    amount: number,
+    tokenAddress: string
+  ): Promise<string> {
     return transfer(this, to, amount, tokenAddress);
   }
 
-  async stakeBySpringsui(amount: number, tokenAddress: string): Promise<string> {
+  async stakeBySpringsui(
+    amount: number,
+    tokenAddress: string
+  ): Promise<string> {
     return stakeBySpringsui(this, amount, tokenAddress);
   }
 
