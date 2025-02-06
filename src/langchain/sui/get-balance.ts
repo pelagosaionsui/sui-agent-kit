@@ -24,7 +24,6 @@ export class SuiGetBalanceTool extends Tool {
 
     protected async _call(input: string): Promise<any> {
         try {
-            console.log('hihihihihihih:');
             let tokenAddress = TOKENS.SUI;
             
             if (input) {
