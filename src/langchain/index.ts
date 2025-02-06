@@ -1,27 +1,29 @@
-export * from "./agent";
-export * from "./sui";
-export * from "./cetus";
-export * from "./navi";
-export * from "./suilend";
+export * from './agent';
+export * from './sui';
+export * from './cetus';
+export * from './navi';
+export * from './suilend';
 
-import type { SuiAgentKit } from "../agent";
+import type { SuiAgentKit } from '../agent';
+import { SuiSetWalletAddressTool } from './agent';
 
 import {
-    SuiGetWalletAddressTool,
-    SuiGetBalanceTool,
-    SuiCetusTradeTool,
-    SuiTransferTool,
-    SuiSpringsuiStakeTool,
-    SuiNaviTradeTool,
-    SuiSuilendDepositTool,
-    SuiSuilendBorrowTool,
-    SuiSuilendWithdrawTool,
-    SuiSuilendRepayTool
-} from "./index";
+  SuiGetWalletAddressTool,
+  SuiGetBalanceTool,
+  SuiCetusTradeTool,
+  SuiTransferTool,
+  SuiSpringsuiStakeTool,
+  SuiNaviTradeTool,
+  SuiSuilendDepositTool,
+  SuiSuilendBorrowTool,
+  SuiSuilendWithdrawTool,
+  SuiSuilendRepayTool,
+} from './index';
 
 export function createSuiTools(suiAgentKit: SuiAgentKit) {
   return [
     new SuiGetWalletAddressTool(suiAgentKit),
+    new SuiSetWalletAddressTool(suiAgentKit),
     new SuiGetBalanceTool(suiAgentKit),
     new SuiCetusTradeTool(suiAgentKit),
     new SuiTransferTool(suiAgentKit),

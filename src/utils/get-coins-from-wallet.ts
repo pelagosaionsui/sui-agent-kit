@@ -2,7 +2,7 @@ import { SuiAgentKit } from '../agent';
 
 /**
  * Retrieves a list of info of coin objects from a wallet until the specified total amount is reached.
- * 
+ *
  * e.g. for a single coin object, we may have multiple coin objects with different balances.
  *
  * @param agent - An instance of SuiAgentKit used to interact with the Sui blockchain.
@@ -14,20 +14,28 @@ import { SuiAgentKit } from '../agent';
  *   - version: The version of the coin object.
  *   - balance: The balance of the coin object.
  */
-export async function getCoinsFromWallet(agent: SuiAgentKit, token_address: string, total: bigint) {
+export async function getCoinsFromWallet(
+  agent: SuiAgentKit,
+  token_address: string,
+  total: bigint
+) {
   const selectedCoins: {
     objectId: string;
     digest: string;
     version: string;
     balance: string;
   }[] = [];
-  
+
   let totalAmount = BigInt(0);
   let hasNext = true;
   let nextCursor: string | null | undefined = null;
 
   while (hasNext && totalAmount < total) {
-    const coins = await agent.suiClient.getCoins({ owner: agent.walletAddress.toSuiAddress(), coinType: token_address, cursor: nextCursor });
+    const coins = await agent.suiClient.getCoins({
+      owner: agent.walletAddress!,
+      coinType: token_address,
+      cursor: nextCursor,
+    });
 
     coins.data.sort((a, b) => parseInt(b.balance) - parseInt(a.balance));
 

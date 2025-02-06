@@ -1,6 +1,6 @@
 {
   "name": "@pelagosai/sui-agent-kit",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "description": "AI Agent Kit for Sui Protocols",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,6 +28,7 @@
     "@langchain/openai": "^0.3.16",
     "@langchain/deepseek": "^0.0.1",
     "@mysten/sui": "1.20.0",
+    "@suiet/wallet-kit": "^0.3.4",
     "ai": "^4.0.22",
     "bn.js": "^5.2.1",
     "bs58": "^6.0.0",
@@ -36,6 +37,7 @@
     "dotenv": "^16.4.7",
     "flash-sdk": "^2.24.3",
     "form-data": "^4.0.1",
+    "global": "link:../../../Library/pnpm/global/5/node_modules/global",
     "langchain": "^0.3.8",
     "openai": "^4.77.0",
     "typedoc": "^0.27.6",
@@ -60,6 +62,9 @@
     "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
+  },
+  "resolutions": {
+    "@mysten/sui": "1.20.0"
   },
   "publishConfig": {
     "access": "public"

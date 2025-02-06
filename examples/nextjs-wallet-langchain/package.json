@@ -1,6 +1,6 @@
 {
-  "name": "langchain-nextjs-template",
-  "version": "0.0.0",
+  "name": "langchain-nextjs-wallet-template",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,11 +15,12 @@
   "dependencies": {
     "@langchain/community": "^0.3.11",
     "@langchain/core": "^0.3.17",
+    "@langchain/deepseek": "^0.0.1",
     "@langchain/langgraph": "^0.2.20",
     "@langchain/openai": "^0.3.11",
-    "@langchain/deepseek": "^0.0.1",
     "@next/bundle-analyzer": "^13.4.19",
     "@pelagosai/sui-agent-kit": "0.0.46",
+    "@suiet/wallet-kit": "^0.3.4",
     "@supabase/supabase-js": "^2.32.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "20.12.12",
