@@ -5,6 +5,16 @@ import { getCoinsFromWallet } from "../../utils/get-coins-from-wallet";
 import { Transaction } from "@mysten/sui/transactions";
 import { processCoins } from "../../utils/process-coins";
 
+/**
+ * Executes a trade using the Navi aggregator client.
+ *
+ * @param {SuiAgentKit} agent - The Sui agent kit instance.
+ * @param {string} target - The target coin type to trade to.
+ * @param {number} amount - The amount of the source coin to trade.
+ * @param {string} [from=TOKENS.SUI] - The source coin type to trade from. Defaults to SUI.
+ * @returns {Promise<string>} - A promise that resolves to a JSON string containing the trade status and transaction details.
+ * @throws {Error} - Throws an error if the trade fails or if there are insufficient funds.
+ */
 export async function tradeByNavi(
     agent: SuiAgentKit,
     target: string,
@@ -60,4 +70,4 @@ export async function tradeByNavi(
         console.error('Error trading:', error.message, 'Error stack trace:', error.stack);
         throw new Error(`Swap failed: ${error.message}`);
     }
-  }
+}
