@@ -47,7 +47,7 @@ export async function depositBySuilend(
         const total = BigInt(amount * (10 ** fromCoinAddressMetadata.decimals));
 
         // Deposit
-        const txForDeposit = new Transaction();
+        const tx = new Transaction();
 
         let obligationOwnerCapId: string | TransactionResult;
 
@@ -65,11 +65,11 @@ export async function depositBySuilend(
             agent.walletAddress.toSuiAddress(),
             coinType,
             total.toString(),
-            txForDeposit,
+            tx,
             obligationOwnerCapId,
         );
 
-        const result = await agent.suiClient.signAndExecuteTransaction({ signer: agent.wallet, transaction: txForDeposit });
+        const result = await agent.suiClient.signAndExecuteTransaction({ signer: agent.wallet, transaction: tx });
 
         return JSON.stringify({
             status: "success",
