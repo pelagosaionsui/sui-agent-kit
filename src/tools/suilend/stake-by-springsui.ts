@@ -12,7 +12,7 @@ import { MIST_PER_SUI, SUIVISION_URL } from "../../constants";
  * @returns {Promise<string>} A promise that resolves to a JSON string containing the status, message, and transaction details.
  * @throws {Error} If the staking process fails, an error is thrown with a message indicating the failure reason.
  */
-export async function stake(
+export async function stakeBySpringsui(
     agent: SuiAgentKit,
     amount: number,
     lstTokenAddress: string,

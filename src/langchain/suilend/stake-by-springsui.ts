@@ -1,7 +1,7 @@
 import { Tool } from "langchain/tools";
 import { SuiAgentKit } from "../../agent";
 
-export class SuiStakeTool extends Tool {
+export class SuiSpringsuiStakeTool extends Tool {
     name = "sui_stake";
     description = `Use this tool to stake your SUI or other supported coins with Spring Sui (liquid staking).
 
