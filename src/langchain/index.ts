@@ -2,6 +2,7 @@ export * from "./agent";
 export * from "./sui";
 export * from "./cetus";
 export * from "./navi";
+export * from "./suilend";
 
 import type { SuiAgentKit } from "../agent";
 
@@ -11,7 +12,8 @@ import {
     SuiCetusTradeTool,
     SuiTransferTool,
     SuiStakeTool,
-    SuiNaviTradeTool
+    SuiNaviTradeTool,
+    SuiSuilendDepositTool
 } from "./index";
 
 export function createSuiTools(suiAgentKit: SuiAgentKit) {
@@ -21,6 +23,7 @@ export function createSuiTools(suiAgentKit: SuiAgentKit) {
     new SuiCetusTradeTool(suiAgentKit),
     new SuiTransferTool(suiAgentKit),
     new SuiStakeTool(suiAgentKit),
-    new SuiNaviTradeTool(suiAgentKit)
+    new SuiNaviTradeTool(suiAgentKit),
+    new SuiSuilendDepositTool(suiAgentKit)
   ];
 }
