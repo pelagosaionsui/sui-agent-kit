@@ -29,6 +29,9 @@ importers:
       '@mysten/sui':
         specifier: 1.20.0
         version: 1.20.0(typescript@5.7.3)
+      '@suilend/frontend-sui':
+        specifier: 0.2.38
+        version: 0.2.38(@babel/core@7.26.7)(@mysten/sui@1.20.0(typescript@5.7.3))(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(date-fns@4.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(utf-8-validate@5.0.10)
       '@suilend/sdk':
         specifier: 1.1.36
         version: 1.1.36(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(date-fns@4.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(utf-8-validate@5.0.10)
@@ -1679,9 +1682,10 @@ packages:
   '@suchipi/femver@1.0.0':
     resolution: {integrity: sha512-bprE8+K5V+DPX7q2e2K57ImqNBdfGHDIWaGI5xHxZoxbKOuQZn4wzPiUxOAHnsUr3w3xHrWXwN7gnG/iIuEMIg==}
 
-  '@suilend/frontend-sui@0.2.35':
-    resolution: {integrity: sha512-pUFb3AyodZFfhIKo5fE4E52lOxaxGg+aiMB09gaYDIPf81W+vfTqhrnSPmumIfoYCVhyEx3U4LrPHFYlHJ525A==}
+  '@suilend/frontend-sui@0.2.38':
+    resolution: {integrity: sha512-6wwddQUo5yyp5te0Ejb6cTVlFJ911pGU9/xIiGixb8jWQHr8HpoL62tgA9aJ6DdHaSNkYpfvkb57WeXXLM5/2w==}
     peerDependencies:
+      '@mysten/sui': 1.20.0
       date-fns: ^4.1.0
 
   '@suilend/sdk@1.1.36':
@@ -6009,7 +6013,7 @@ snapshots:
 
   '@suchipi/femver@1.0.0': {}
 
-  '@suilend/frontend-sui@0.2.35(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(date-fns@4.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(utf-8-validate@5.0.10)':
+  '@suilend/frontend-sui@0.2.38(@babel/core@7.26.7)(@mysten/sui@1.20.0(typescript@5.7.3))(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(date-fns@4.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(utf-8-validate@5.0.10)':
     dependencies:
       '@mysten/sui': 1.20.0(typescript@5.7.3)
       '@pythnetwork/pyth-sui-js': 2.1.0(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)
@@ -6039,7 +6043,7 @@ snapshots:
       '@mysten/bcs': 1.2.1
       '@mysten/sui': 1.20.0(typescript@5.7.3)
       '@pythnetwork/pyth-sui-js': 2.1.0(bufferutil@4.0.9)(typescript@5.7.3)(utf-8-validate@5.0.10)
-      '@suilend/frontend-sui': 0.2.35(@babel/core@7.26.7)(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(date-fns@4.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(utf-8-validate@5.0.10)
+      '@suilend/frontend-sui': 0.2.38(@babel/core@7.26.7)(@mysten/sui@1.20.0(typescript@5.7.3))(@opentelemetry/api@1.9.0)(bufferutil@4.0.9)(date-fns@4.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(utf-8-validate@5.0.10)
       bignumber.js: 9.1.2
       p-limit: 3.1.0
       uuid: 11.0.5

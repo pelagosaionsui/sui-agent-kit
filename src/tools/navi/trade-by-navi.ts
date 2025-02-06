@@ -25,7 +25,7 @@ export async function tradeByNavi(
         const selectedCoins = await getCoinsFromWallet(agent, from, total);
 
         if (!selectedCoins.length) {
-            throw new Error(`Insufficient balance of ${target}`);
+            throw new Error(`Insufficient balance of ${from}`);
         }
 
         const tx = new Transaction();
