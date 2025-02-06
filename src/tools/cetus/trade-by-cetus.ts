@@ -35,7 +35,7 @@ export async function tradeByCetus(
       throw new Error(`Invalid from coin address: ${from}`);
     }
 
-    const total = new BN(amount * 10 ** fromCoinAddressMetadata.decimals);
+    const total = new BN(amount * (10 ** fromCoinAddressMetadata.decimals));
     const aggregatorClient = new AggregatorClient(
       CETUS_AGGREGATOR_API,
       agent.walletAddress,
@@ -43,45 +43,47 @@ export async function tradeByCetus(
       Env.Mainnet
     );
 
-    const routerRes = await aggregatorClient.findRouters({
+    const routers = await aggregatorClient.findRouters({
       from,
       target,
       amount: total,
       byAmountIn,
     });
 
-    const routerTx = new Transaction();
+    const tx = new Transaction();
 
-    if (routerRes != null) {
+    if (routers != null) {
+      if (routers.error) {
+        throw new Error(`Routers failed for errors: ${routers.error}`);
+      }
+
       await aggregatorClient.fastRouterSwap({
-        routers: routerRes.routes,
-        byAmountIn,
-        txb: routerTx,
+        routers,
         slippage: 0.01,
-        refreshAllCoins: true,
+        txb: tx,
       });
 
-      let result = await aggregatorClient.devInspectTransactionBlock(routerTx);
+      let result = await aggregatorClient.devInspectTransactionBlock(tx);
 
       if (result.effects.status.status === 'success') {
         if (agent.keypair) {
           const result = await aggregatorClient.signAndExecuteTransaction(
-            routerTx,
+            tx,
             agent.keypair
           );
           return JSON.stringify({
             status: 'success',
-            message: 'Trade completed successfully',
+            message: `Trade completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL + result.digest}`,
             transaction: result.transaction,
           });
         } else if (agent.walletAddress) {
-          routerTx.setSender(agent.walletAddress);
-          const txBytes = await routerTx.build({ client: agent.suiClient });
-          return JSON.stringify({
-            status: 'success',
-            message: 'Trade completed successfully',
-            txBytes: Buffer.from(txBytes).toString('hex'),
-          });
+            tx.setSender(agent.walletAddress);
+            const txBytes = await tx.build({ client: agent.suiClient });
+            return JSON.stringify({
+                status: 'success',
+                message: 'Trade completed successfully',
+                txBytes: Buffer.from(txBytes).toString('hex'),
+            });
         } else {
           const errorMessage =
             'Trade failed. Wallet not connected or keypair not provided';
