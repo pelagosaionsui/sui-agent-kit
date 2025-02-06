@@ -8,6 +8,15 @@ import {
 import { Transaction } from '@mysten/sui/transactions';
 import { SUIVISION_URL } from "../../constants";
 
+/**
+ * Withdraws a specified amount of a given coin type from Suilend and sends it to the user's address.
+ *
+ * @param agent - The SuiAgentKit instance containing the Sui client and wallet information.
+ * @param coinType - The type of coin to withdraw.
+ * @param amount - The amount of the coin to withdraw.
+ * @returns A promise that resolves to a string containing the transaction details.
+ * @throws Will throw an error if the obligation is not found, the coin type is invalid, or if there is an issue with the withdrawal process.
+ */
 export async function withdrawBySuilend(
     agent: SuiAgentKit,
     coinType: string,
