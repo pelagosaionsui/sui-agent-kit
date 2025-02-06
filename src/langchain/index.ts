@@ -13,7 +13,8 @@ import {
     SuiTransferTool,
     SuiSpringsuiStakeTool,
     SuiNaviTradeTool,
-    SuiSuilendDepositTool
+    SuiSuilendDepositTool,
+    SuiSuilendBorrowTool
 } from "./index";
 
 export function createSuiTools(suiAgentKit: SuiAgentKit) {
@@ -24,6 +25,7 @@ export function createSuiTools(suiAgentKit: SuiAgentKit) {
     new SuiTransferTool(suiAgentKit),
     new SuiSpringsuiStakeTool(suiAgentKit),
     new SuiNaviTradeTool(suiAgentKit),
-    new SuiSuilendDepositTool(suiAgentKit)
+    new SuiSuilendDepositTool(suiAgentKit),
+    new SuiSuilendBorrowTool(suiAgentKit)
   ];
 }

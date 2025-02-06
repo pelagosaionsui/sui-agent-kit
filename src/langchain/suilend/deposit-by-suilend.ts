@@ -2,7 +2,7 @@ import { Tool } from "langchain/tools";
 import { SuiAgentKit } from "../../agent";
 
 export class SuiSuilendDepositTool extends Tool {
-    name = "sui_deposit";
+    name = "sui_suilend_deposit";
     description = `Use this tool to deposit your SUI or other supported coins to Suiland.
 
     Inputs (input is a JSON string):
@@ -21,7 +21,7 @@ export class SuiSuilendDepositTool extends Tool {
         try {
         const parsedInput = JSON.parse(input);
 
-        const tx = await this.suiAgentKit.deposit(parsedInput.coinType, parsedInput.amount);
+        const tx = await this.suiAgentKit.depositBySuilend(parsedInput.coinType, parsedInput.amount);
 
         return JSON.stringify({
             status: "success",

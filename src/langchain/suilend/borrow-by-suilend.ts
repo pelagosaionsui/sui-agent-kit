@@ -1,13 +1,13 @@
 import { Tool } from "langchain/tools";
 import { SuiAgentKit } from "../../agent";
 
-export class SuiSpringsuiStakeTool extends Tool {
-    name = "sui_stake";
-    description = `Use this tool to stake your SUI or other supported coins with Spring Sui (liquid staking).
+export class SuiSuilendBorrowTool extends Tool {
+    name = "sui_suilend_borrow";
+    description = `Use this tool to borrow supported coins from Suiland based on your deposit.
 
     Inputs (input is a JSON string):
-    - amount: number, e.g., 1 or 0.01 (required)
-    - lstTokenAddress: string, the type of liqudity staking token returned after staking and the default token returned is "0x83556891f4a0f233ce7b05cfe7f957d4020492a34f5405b2cb9377d060bef4bf::spring_sui::SPRING_SUI". Example: "0x02358129a7d66f943786a10b518fdc79145f1fc8d23420d9948c4aeea190f603::fud_sui::FUD_SUI" (optional)
+    - coinType: string, the coin user want to borrow. e.g., "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI" (required)
+    - amount: number, the amount of the coin. e.g., 1 or 0.01 (required)
 
     DO NOT UNDER ANY CIRCUMSTANCES STRAY FROM THE INPUT FORMAT
     CONVERT YOUR INPUT WITH INPUT FORMAT AND PARAMS IN THE EXACT ORDER
@@ -21,12 +21,13 @@ export class SuiSpringsuiStakeTool extends Tool {
         try {
         const parsedInput = JSON.parse(input);
 
-        const tx = await this.suiAgentKit.stakeBySpringsui(parsedInput.amount, parsedInput.lstTokenAddress);
+        const tx = await this.suiAgentKit.borrowBySuilend(parsedInput.coinType, parsedInput.amount);
 
         return JSON.stringify({
             status: "success",
-            message: "Staked successfully",
+            message: "Borrow successfully",
             transaction: tx,
+            coinType: parsedInput.coinType,
             amount: parsedInput.amount,
         });
         } catch (error: any) {
