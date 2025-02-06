@@ -17,6 +17,7 @@
     "@langchain/core": "^0.3.17",
     "@langchain/langgraph": "^0.2.20",
     "@langchain/openai": "^0.3.11",
+    "@langchain/deepseek": "^0.0.1",
     "@next/bundle-analyzer": "^13.4.19",
     "@supabase/supabase-js": "^2.32.0",
     "@tailwindcss/typography": "^0.5.15",

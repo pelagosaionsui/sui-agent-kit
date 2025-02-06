@@ -26,6 +26,7 @@
     "@langchain/groq": "^0.1.2",
     "@langchain/langgraph": "^0.2.36",
     "@langchain/openai": "^0.3.16",
+    "@langchain/deepseek": "^0.0.1",
     "@mysten/sui": "1.20.0",
     "ai": "^4.0.22",
     "bn.js": "^5.2.1",
