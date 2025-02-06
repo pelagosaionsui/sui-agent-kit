@@ -1,12 +1,12 @@
-import { SuiAgentKit } from "../../agent";
+import { SuiAgentKit } from '../../agent';
 import {
-    LENDING_MARKET_ID,
-    LENDING_MARKET_TYPE,
-    SuilendClient,
-    initializeSuilend,
-} from "@suilend/sdk";
+  LENDING_MARKET_ID,
+  LENDING_MARKET_TYPE,
+  SuilendClient,
+  initializeSuilend,
+} from '@suilend/sdk';
 import { Transaction, TransactionResult } from '@mysten/sui/transactions';
-import { SUIVISION_URL } from "../../constants";
+import { SUIVISION_URL } from '../../constants';
 
 /**
  * Deposits a specified amount of a given coin type into the Suilend platform.
@@ -18,68 +18,97 @@ import { SUIVISION_URL } from "../../constants";
  * @throws {Error} - Throws an error if the deposit fails.
  */
 export async function depositBySuilend(
-    agent: SuiAgentKit,
-    coinType: string,
-    amount: number,
+  agent: SuiAgentKit,
+  coinType: string,
+  amount: number
 ): Promise<string> {
-    try {
-        const suilendClient = await SuilendClient.initialize(
-            LENDING_MARKET_ID,
-            LENDING_MARKET_TYPE,
-            agent.suiClient,
-        );
-
-        const {
-            coinMetadataMap,
-            obligationOwnerCaps,
-        } = await initializeSuilend(agent.suiClient, suilendClient, agent.walletAddress.toSuiAddress());
-
-        if (!coinMetadataMap[coinType]) {
-            throw new Error(`Invalid coin type: ${coinType}`);
-        }
-
-        const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({coinType: coinType});
-        
-        if (!fromCoinAddressMetadata) {
-            throw new Error(`Failed to fetch metadata for coin type: ${coinType}`);
-        }
-
-        const total = BigInt(amount * (10 ** fromCoinAddressMetadata.decimals));
-
-        // Deposit
-        const tx = new Transaction();
-
-        let obligationOwnerCapId: string | TransactionResult;
-
-        // Create obligation if it doesn't exist
-        if (obligationOwnerCaps === undefined || obligationOwnerCaps.length === 0) {
-            await createObligationIfNotExists(agent, suilendClient);
-
-            obligationOwnerCapId = await initializeSuilend(agent.suiClient, suilendClient, agent.walletAddress.toSuiAddress()).then((res) => res["obligationOwnerCaps"]?.[0].id!);
-        } else {
-            // Use existing obligation
-            obligationOwnerCapId = obligationOwnerCaps[0].id;
-        }
-        
-        await suilendClient.depositIntoObligation(
-            agent.walletAddress.toSuiAddress(),
-            coinType,
-            total.toString(),
-            tx,
-            obligationOwnerCapId,
-        );
-
-        const result = await agent.suiClient.signAndExecuteTransaction({ signer: agent.wallet, transaction: tx });
-
-        return JSON.stringify({
-            status: "success",
-            message: `Deposit completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL+result.digest}`,
-            transaction: result.transaction,
-        });
-    } catch (error: any) {
-        console.error('Error depositing:', error.message, 'Error stack trace:', error.stack);
-        throw new Error(`Failed to deposit: ${error.message}`);
+  try {
+    if (!agent.walletAddress) {
+      throw new Error('Wallet not connected');
     }
+    const suilendClient = await SuilendClient.initialize(
+      LENDING_MARKET_ID,
+      LENDING_MARKET_TYPE,
+      agent.suiClient
+    );
+
+    const { coinMetadataMap, obligationOwnerCaps } = await initializeSuilend(
+      agent.suiClient,
+      suilendClient,
+      agent.walletAddress
+    );
+
+    if (!coinMetadataMap[coinType]) {
+      throw new Error(`Invalid coin type: ${coinType}`);
+    }
+
+    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({
+      coinType: coinType,
+    });
+
+    if (!fromCoinAddressMetadata) {
+      throw new Error(`Failed to fetch metadata for coin type: ${coinType}`);
+    }
+
+    const total = BigInt(amount * 10 ** fromCoinAddressMetadata.decimals);
+
+    // Deposit
+    const tx = new Transaction();
+
+    let obligationOwnerCapId: string | TransactionResult;
+
+    // Create obligation if it doesn't exist
+    if (obligationOwnerCaps === undefined || obligationOwnerCaps.length === 0) {
+      // Note: this does not work with wallet, let's try to fix it later
+      await createObligationIfNotExists(agent, suilendClient);
+
+      obligationOwnerCapId = await initializeSuilend(
+        agent.suiClient,
+        suilendClient,
+        agent.walletAddress
+      ).then((res) => res['obligationOwnerCaps']?.[0].id!);
+    } else {
+      // Use existing obligation
+      obligationOwnerCapId = obligationOwnerCaps[0].id;
+    }
+
+    await suilendClient.depositIntoObligation(
+      agent.walletAddress,
+      coinType,
+      total.toString(),
+      tx,
+      obligationOwnerCapId
+    );
+
+    if (agent.keypair) {
+      const result = await agent.suiClient.signAndExecuteTransaction({
+        signer: agent.keypair,
+        transaction: tx,
+      });
+
+      return JSON.stringify({
+        status: 'success',
+        message: `Deposit completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL + result.digest}`,
+        transaction: result.transaction,
+      });
+    } else {
+      tx.setSender(agent.walletAddress);
+      const txBytes = await tx.build({ client: agent.suiClient });
+      return JSON.stringify({
+        status: 'success',
+        message: `Deposit prepared successfully.`,
+        txbytes: Buffer.from(txBytes).toString('hex'),
+      });
+    }
+  } catch (error: any) {
+    console.error(
+      'Error depositing:',
+      error.message,
+      'Error stack trace:',
+      error.stack
+    );
+    throw new Error(`Failed to deposit: ${error.message}`);
+  }
 }
 
 /**
@@ -94,16 +123,22 @@ export async function depositBySuilend(
  * @returns A promise that resolves when the transaction is signed and executed.
  */
 async function createObligationIfNotExists(
-    agent: SuiAgentKit,
-    suilendClient: SuilendClient,
+  agent: SuiAgentKit,
+  suilendClient: SuilendClient
 ): Promise<void> {
-    const tx = new Transaction();
-    const obligation = suilendClient.createObligation(tx);
+  if (!agent.walletAddress) {
+    throw new Error('Wallet address not set');
+  }
 
-    tx.transferObjects(
-        [obligation],
-        tx.pure.address(agent.walletAddress.toSuiAddress()),
-    );
+  const tx = new Transaction();
+  const obligation = suilendClient.createObligation(tx);
 
-    await agent.suiClient.signAndExecuteTransaction({ signer: agent.wallet, transaction: tx });
+  tx.transferObjects([obligation], tx.pure.address(agent.walletAddress));
+
+  if (agent.keypair) {
+    await agent.suiClient.signAndExecuteTransaction({
+      signer: agent.keypair,
+      transaction: tx,
+    });
+  }
 }

@@ -16,7 +16,7 @@ import BN from 'bn.js';
  * @returns {Promise<string>} - A promise that resolves to a success message or throws an error if the trade fails.
  * @throws {Error} - Throws an error if the trade fails.
  */
-export async function trade(
+export async function tradeByCetus(
   agent: SuiAgentKit,
   target: string,
   amount: number,

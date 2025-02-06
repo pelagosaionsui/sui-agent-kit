@@ -1,6 +1,6 @@
 {
   "name": "@pelagosai/sui-agent-kit",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "description": "AI Agent Kit for Sui Protocols",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -71,10 +71,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "pnpm": {
-    "overrides": {
-      "global": "link:../../../Library/pnpm/global/5/node_modules/global"
-    }
   }
 }
