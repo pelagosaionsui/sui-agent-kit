@@ -9,15 +9,15 @@ import { Transaction } from '@mysten/sui/transactions';
 import { SUIVISION_URL } from "../../constants";
 
 /**
- * Withdraws a specified amount of a given coin type from Suilend and sends it to the user's address.
+ * Repays a specified amount of a given coin type using the Suilend protocol.
  *
  * @param agent - The SuiAgentKit instance containing the Sui client and wallet information.
- * @param coinType - The type of coin to withdraw.
- * @param amount - The amount of the coin to withdraw.
+ * @param coinType - The type of coin to be repaid.
+ * @param amount - The amount of the coin to be repaid.
  * @returns A promise that resolves to a string containing the transaction details.
- * @throws Will throw an error if the obligation is not found, the coin type is invalid, or if there is an issue with the withdrawal process.
+ * @throws Will throw an error if the obligation or coin metadata is not found, or if the repayment fails.
  */
-export async function withdrawBySuilend(
+export async function repayBySuilend(
     agent: SuiAgentKit,
     coinType: string,
     amount: number,
@@ -53,9 +53,8 @@ export async function withdrawBySuilend(
 
         const tx = new Transaction();
 
-        await suilendClient.withdrawAndSendToUser(
+        await suilendClient.repayIntoObligation(
             agent.walletAddress.toSuiAddress(),
-            obligationOwnerCaps[0].id,
             obligations[0].id,
             coinType,
             total.toString(),
@@ -66,11 +65,11 @@ export async function withdrawBySuilend(
 
         return JSON.stringify({
             status: "success",
-            message: `Withdraw completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL+result.digest}`,
+            message: `Repay completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL+result.digest}`,
             transaction: result.transaction,
         });
     } catch (error: any) {
-        console.error('Error withdrawing:', error.message, 'Error stack trace:', error.stack);
-        throw new Error(`Failed to withdraw: ${error.message}`);
+        console.error('Error repaying:', error.message, 'Error stack trace:', error.stack);
+        throw new Error(`Failed to repay: ${error.message}`);
     }
 }
