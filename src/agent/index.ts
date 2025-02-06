@@ -54,7 +54,7 @@ export class SuiAgentKit {
     if (privateKey) {
       const { secretKey } = decodeSuiPrivateKey(privateKey);
       this.keypair = Ed25519Keypair.fromSecretKey(secretKey);
-      this.walletAddress = `0x${Buffer.from(this.keypair.getPublicKey().toRawBytes()).toString('hex')}`;
+      this.walletAddress = this.keypair.getPublicKey().toSuiAddress();
     }
   }
 
