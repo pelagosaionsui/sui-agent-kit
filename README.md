@@ -27,11 +27,21 @@ The Autonomous and Composable AI Agent Framework on Sui
     - A general-purpose agent for handling basic queries
     - A Transfer/Swap agent for executing transactions
     - A Read agent for retrieving blockchain data
-    - A Manager agent for coordination and task routing  
+    - A Manager agent for coordination and task routing
+
+## Security
+The toolkit supports both private keys and wallet integration which satisified different security need based on your use case.
+
+Note: if you leverage private keys for our toolkit, make sure using it in a secure environment
 
 ## ⚒ Installation
 
 ```bash
 npm install @pelagosai/sui-agent-kit
 ```
+
+## License
+
+Apache-2 License
+
 
