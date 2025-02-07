@@ -30,7 +30,7 @@ The Autonomous and Composable AI Agent Framework on Sui
     - A Manager agent for coordination and task routing
 
 ## 🛡️ Security
-The toolkit supports both private keys and wallet integration which satisified different use case need based on your use case.
+The toolkit supports both private keys and wallet integration which satisified different use case's need.
 
 Note: if you leverage private keys for our toolkit, make sure using it in a secure environment
 
