@@ -20,9 +20,18 @@ The Autonomous and Composable AI Agent Framework on Sui
   - Support autonomous agents with React framework
   - Enable Memory management for consistent interactions
   - Provide real-time feedback via streaming responses
+ 
+- **LangGraph Multi-Agent System**
+  - Leverage LangGraph's StateGraph for Multi-agent architecture
+  - Provide different specialized agents
+    - A general-purpose agent for handling basic queries
+    - A Transfer/Swap agent for executing transactions
+    - A Read agent for retrieving blockchain data
+    - A Manager agent for coordination and task routing  
 
 ## ⚒ Installation
 
 ```bash
 npm install @pelagosai/sui-agent-kit
 ```
+
