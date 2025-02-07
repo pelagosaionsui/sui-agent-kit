@@ -11,6 +11,15 @@ import { getCoinsFromWallet } from '../../utils/get-coins-from-wallet';
 import { processCoins } from '../../utils/process-coins';
 import { getCoinAmount } from '../../utils/get-coin-amount';
 
+/**
+ * Unstakes a specified amount of tokens using the SpringSui protocol.
+ *
+ * @param {SuiAgentKit} agent - The Sui agent kit instance.
+ * @param {number} amount - The amount of tokens to unstake.
+ * @param {string} lstTokenAddress - The address of the liquid staking token.
+ * @returns {Promise<string>} - A promise that resolves to a JSON string containing the status and transaction details.
+ * @throws {Error} - Throws an error if the wallet is not connected, if there is an insufficient balance, or if unstaking fails.
+ */
 export async function unstakeBySpringsui(
   agent: SuiAgentKit,
   amount: number,
@@ -73,7 +82,7 @@ export async function unstakeBySpringsui(
 
       return JSON.stringify({
         status: 'success',
-        message: 'Unstake completed successfully',
+        message: `Unstake completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL + result.digest}`,
         transaction: result.transaction,
       });
     } else if (agent.walletAddress) {
