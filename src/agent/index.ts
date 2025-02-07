@@ -15,6 +15,7 @@ import { withdrawBySuilend } from '../tools/suilend/withdraw-by-suilend';
 import { repayBySuilend } from '../tools/suilend/repay-by-suilend';
 import { WalletContextState } from '@suiet/wallet-kit';
 import { isValidSuiAddress } from '../utils/validate-token-address';
+import { unstakeBySpringsui } from '../tools/suilend/unstake-by-springsui';
 
 /**
  * Main class for interacting with Sui blockchain
@@ -105,6 +106,13 @@ export class SuiAgentKit {
     tokenAddress: string
   ): Promise<string> {
     return stakeBySpringsui(this, amount, tokenAddress);
+  }
+
+  async unstakeBySpringsui(
+    amount: number,
+    tokenAddress: string
+  ): Promise<string> {
+    return unstakeBySpringsui(this, amount, tokenAddress);
   }
 
   async depositBySuilend(coinType: string, amount: number): Promise<string> {

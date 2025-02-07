@@ -64,7 +64,7 @@ export async function stakeBySpringsui(
 
       return JSON.stringify({
         status: 'success',
-        message: 'Stake completed successfully',
+        message: `Stake completed successfully. Refer to transaction in SuiVision ${SUIVISION_URL + result.digest}`,
         transaction: result.transaction,
       });
     } else if (agent.walletAddress) {

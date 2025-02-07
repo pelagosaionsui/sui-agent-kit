@@ -8,6 +8,7 @@ import {
 import { getCoinsFromWallet } from '../../utils/get-coins-from-wallet';
 import { Transaction } from '@mysten/sui/transactions';
 import { processCoins } from '../../utils/process-coins';
+import { getCoinAmount } from '../../utils/get-coin-amount';
 
 /**
  * Executes a trade using the Navi aggregator client.
@@ -26,15 +27,7 @@ export async function tradeByNavi(
   from: string = TOKENS.SUI
 ): Promise<string> {
   try {
-    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({
-      coinType: from,
-    });
-
-    if (!fromCoinAddressMetadata) {
-      throw new Error(`Invalid from coin address: ${from}`);
-    }
-
-    const total = BigInt(amount * 10 ** fromCoinAddressMetadata.decimals);
+    const total = await getCoinAmount(agent, amount, target);
 
     if (agent.keypair) {
       const aggregatorClient = new NAVISDKClient({

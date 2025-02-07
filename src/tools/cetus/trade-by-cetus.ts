@@ -4,6 +4,7 @@ import { Transaction } from '@mysten/sui/transactions';
 import { CETUS_AGGREGATOR_API, SUIVISION_URL, TOKENS } from '../../constants';
 import { Env } from '@cetusprotocol/aggregator-sdk';
 import BN from 'bn.js';
+import { getCoinAmount } from '../../utils/get-coin-amount';
 
 /**
  * Executes a trade using the Cetus aggregator client.
@@ -27,15 +28,9 @@ export async function tradeByCetus(
     if (!agent.walletAddress) {
       throw new Error('Wallet not connected');
     }
-    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({
-      coinType: from,
-    });
 
-    if (!fromCoinAddressMetadata) {
-      throw new Error(`Invalid from coin address: ${from}`);
-    }
+    const total = await getCoinAmount(agent, amount, target);
 
-    const total = new BN(amount * (10 ** fromCoinAddressMetadata.decimals));
     const aggregatorClient = new AggregatorClient(
       CETUS_AGGREGATOR_API,
       agent.walletAddress,
@@ -46,7 +41,7 @@ export async function tradeByCetus(
     const routers = await aggregatorClient.findRouters({
       from,
       target,
-      amount: total,
+      amount: new BN(total.toString()),
       byAmountIn,
     });
 
