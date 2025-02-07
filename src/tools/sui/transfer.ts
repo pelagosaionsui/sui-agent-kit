@@ -38,8 +38,7 @@ export async function transfer(
       throw new Error(`Invalid from coin address: ${tokenAddress}`);
     }
 
-    const total =
-      BigInt(amount) * BigInt(10) ** BigInt(fromCoinAddressMetadata.decimals);
+    const total = BigInt(amount * (10 ** fromCoinAddressMetadata.decimals));
 
     // Get coins from the wallet
     const selectedCoins = await getCoinsFromWallet(agent, tokenAddress, total);

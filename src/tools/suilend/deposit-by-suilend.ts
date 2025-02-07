@@ -7,6 +7,7 @@ import {
 } from '@suilend/sdk';
 import { Transaction, TransactionResult } from '@mysten/sui/transactions';
 import { SUIVISION_URL } from '../../constants';
+import { getCoinAmount } from '../../utils/get-coin-amount';
 
 /**
  * Deposits a specified amount of a given coin type into the Suilend platform.
@@ -42,15 +43,7 @@ export async function depositBySuilend(
       throw new Error(`Invalid coin type: ${coinType}`);
     }
 
-    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({
-      coinType: coinType,
-    });
-
-    if (!fromCoinAddressMetadata) {
-      throw new Error(`Failed to fetch metadata for coin type: ${coinType}`);
-    }
-
-    const total = BigInt(amount * 10 ** fromCoinAddressMetadata.decimals);
+    const total = await getCoinAmount(agent, amount, coinType);
 
     // Deposit
     const tx = new Transaction();

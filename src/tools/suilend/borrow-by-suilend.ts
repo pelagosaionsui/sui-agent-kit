@@ -7,6 +7,7 @@ import {
 } from '@suilend/sdk';
 import { Transaction } from '@mysten/sui/transactions';
 import { SUIVISION_URL } from '../../constants';
+import { getCoinAmount } from '../../utils/get-coin-amount';
 
 /**
  * Borrow assets using Suilend.
@@ -48,15 +49,7 @@ export async function borrowBySuilend(
       throw new Error(`Invalid coin type: ${coinType}`);
     }
 
-    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({
-      coinType: coinType,
-    });
-
-    if (!fromCoinAddressMetadata) {
-      throw new Error(`Failed to fetch metadata for coin type: ${coinType}`);
-    }
-
-    const total = BigInt(amount * 10 ** fromCoinAddressMetadata.decimals);
+    const total = await getCoinAmount(agent, amount, coinType);
 
     const tx = new Transaction();
 
