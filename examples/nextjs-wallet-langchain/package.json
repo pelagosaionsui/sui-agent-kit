@@ -18,6 +18,7 @@
     "@langchain/deepseek": "^0.0.1",
     "@langchain/langgraph": "^0.2.20",
     "@langchain/openai": "^0.3.11",
+    "@mysten/sui": "1.20.0",
     "@next/bundle-analyzer": "^13.4.19",
     "@pelagosai/sui-agent-kit": "0.0.46",
     "@suiet/wallet-kit": "^0.3.4",
