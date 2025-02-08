@@ -36,7 +36,10 @@ const agent = createReactAgent({
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const messages = body.messages ?? [];
+    const messages = body.message ? [{ role: JSON.parse(body.message)['role'], content: JSON.parse(body.message)['content']}] : [];
+
+    const address = body.requestData;
+    suiAgent.walletAddress = address;
 
     const eventStream = agent.streamEvents(
       {

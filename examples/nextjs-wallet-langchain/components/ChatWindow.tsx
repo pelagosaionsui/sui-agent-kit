@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useChat } from 'ai/react';
+import { JSONValue } from 'ai';
 import { useRef, useState, ReactElement } from 'react';
 import type { FormEvent } from 'react';
 
@@ -35,7 +36,7 @@ export function ChatWindow(props: {
   const [showIntermediateSteps, setShowIntermediateSteps] = useState(false);
   const [intermediateStepsLoading, setIntermediateStepsLoading] =
     useState(false);
-  const { signAndExecuteTransaction, chain } = useWallet();
+  const { signAndExecuteTransaction, address } = useWallet();
   const suiClient = useSuiClient();
 
   const intemediateStepsToggle = showIntermediateStepsToggle && (
@@ -77,6 +78,9 @@ export function ChatWindow(props: {
           [messageIndexHeader]: sources,
         });
       }
+    },
+    experimental_prepareRequestBody: ({messages}) => {
+      return { message: JSON.stringify(messages[messages.length - 1]), requestData: address as JSONValue };
     },
     onFinish: async (message) => {
       try {
