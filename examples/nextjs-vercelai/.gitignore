@@ -1,0 +1,13 @@
+dist
+node_modules
+.env
+.env.local
+.husky
+
+# next.js
+/.next/
+
+# VSCode
+.vscode
+
+.DS_Store
