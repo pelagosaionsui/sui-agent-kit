@@ -98,35 +98,3 @@ export async function depositBySuilend(
     throw new Error(`Failed to deposit: ${error.message}`);
   }
 }
-
-/**
- * Creates an obligation if it does not already exist. Obligation object is a must for depositing into the lending market.
- *
- * This function creates a new transaction and an obligation using the provided
- * `suilendClient`. It then transfers the obligation to the agent's wallet address
- * and signs and executes the transaction using the agent's Sui client.
- *
- * @param agent - The SuiAgentKit instance representing the agent.
- * @param suilendClient - The SuilendClient instance used to create the obligation.
- * @returns A promise that resolves when the transaction is signed and executed.
- */
-async function createObligationIfNotExists(
-  agent: SuiAgentKit,
-  suilendClient: SuilendClient
-): Promise<void> {
-  if (!agent.walletAddress) {
-    throw new Error('Wallet address not set');
-  }
-
-  const tx = new Transaction();
-  const obligation = suilendClient.createObligation(tx);
-
-  tx.transferObjects([obligation], tx.pure.address(agent.walletAddress));
-
-  if (agent.keypair) {
-    await agent.suiClient.signAndExecuteTransaction({
-      signer: agent.keypair,
-      transaction: tx,
-    });
-  }
-}
