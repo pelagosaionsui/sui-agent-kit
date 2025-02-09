@@ -84,8 +84,8 @@ export async function depositBySuilend(
       const txBytes = await tx.build({ client: agent.suiClient });
       return JSON.stringify({
         status: 'success',
-        message: `Deposit prepared successfully.`,
-        txbytes: Buffer.from(txBytes).toString('hex'),
+        message: 'Deposit prepared successfully.',
+        txBytes: Buffer.from(txBytes).toString('hex'),
       });
     }
   } catch (error: any) {
