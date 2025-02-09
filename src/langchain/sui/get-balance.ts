@@ -38,7 +38,7 @@ export class SuiGetBalanceTool extends Tool {
             
             return JSON.stringify({
                 status: "success",
-                balance: balance.toString(),
+                balance,
                 token: input || "SUI",
             });
         } catch (error: any) {
