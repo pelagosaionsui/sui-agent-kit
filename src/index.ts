@@ -1,6 +1,6 @@
 import { SuiAgentKit } from './agent';
 import { createSuiTools } from './langchain';
-import { createSuiTools as createSuiVercelAITools } from "./vecel-ai";
+import { createSuiTools as createSuiVercelAITools } from "./vercel-ai";
 
 export { SuiAgentKit, createSuiTools, createSuiVercelAITools};
 
