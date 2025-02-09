@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@langchain/community':
         specifier: ^0.3.11
-        version: 0.3.27(hvujie2omjraacgnic7k7iftk4)
+        version: 0.3.27(aca5f871441dc050fd1c542610231137)
       '@langchain/core':
         specifier: ^0.3.17
         version: 0.3.36(openai@4.80.1(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1))
@@ -30,7 +30,7 @@ importers:
         specifier: ^13.4.19
         version: 13.5.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@pelagosai/sui-agent-kit':
-        specifier: 0.0.47
+        specifier: latest
         version: 0.0.47(@babel/core@7.26.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@mysten/bcs@1.2.1)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(@types/node@20.12.12)(@types/react@18.3.2)(axios@1.7.4)(bufferutil@4.0.9)(date-fns@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(jsdom@26.0.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.1.6))(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@suiet/wallet-kit':
         specifier: ^0.3.4
@@ -7736,7 +7736,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@langchain/community@0.3.27(hvujie2omjraacgnic7k7iftk4)':
+  '@langchain/community@0.3.27(aca5f871441dc050fd1c542610231137)':
     dependencies:
       '@browserbasehq/stagehand': 1.10.1(@playwright/test@1.50.0)(bufferutil@4.0.9)(deepmerge@4.3.1)(dotenv@16.4.7)(openai@4.80.1(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1))(utf-8-validate@5.0.10)(zod@3.24.1)
       '@ibm-cloud/watsonx-ai': 1.3.2(@langchain/core@0.3.36(openai@4.80.1(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(zod@3.24.1)))
@@ -10618,7 +10618,7 @@ snapshots:
       isstream: 0.1.2
       jsonwebtoken: 9.0.2
       mime-types: 2.1.35
-      retry-axios: 2.6.0(axios@1.7.4)
+      retry-axios: 2.6.0(axios@1.7.4(debug@4.4.0))
       tough-cookie: 4.1.4
     transitivePeerDependencies:
       - supports-color
@@ -12111,7 +12111,7 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
-  retry-axios@2.6.0(axios@1.7.4):
+  retry-axios@2.6.0(axios@1.7.4(debug@4.4.0)):
     dependencies:
       axios: 1.7.4(debug@4.4.0)
 
