@@ -29,7 +29,7 @@ export async function tradeByCetus(
       throw new Error('Wallet not connected');
     }
 
-    const total = await getCoinAmount(agent, amount, target);
+    const total = await getCoinAmount(agent, amount, from);
 
     const aggregatorClient = new AggregatorClient(
       CETUS_AGGREGATOR_API,

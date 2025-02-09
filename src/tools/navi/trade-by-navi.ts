@@ -27,7 +27,7 @@ export async function tradeByNavi(
   from: string = TOKENS.SUI
 ): Promise<string> {
   try {
-    const total = await getCoinAmount(agent, amount, target);
+    const total = await getCoinAmount(agent, amount, from);
 
     if (agent.keypair) {
       const aggregatorClient = new NAVISDKClient({

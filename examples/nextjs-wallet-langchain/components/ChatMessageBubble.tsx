@@ -24,7 +24,7 @@ export function ChatMessageBubble(props: {
       <div className="mr-2">{prefix}</div>
       <div className="flex flex-col">
         <div
-          className="prose prose-lg max-w-none"
+          className="prose prose-lg max-w-none break-all"
           dangerouslySetInnerHTML={{ __html: content }}
         ></div>
         {props.sources && props.sources.length ? (

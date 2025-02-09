@@ -39,6 +39,11 @@ export function ChatWindow(props: {
   const { signAndExecuteTransaction, address } = useWallet();
   const suiClient = useSuiClient();
 
+  const checkIsJson = (message: string) => {
+    return message.match(
+    /\{(?:[^{}]|{(?:[^{}]|{[^{}]*})*})*\}/);
+  };
+
   const intemediateStepsToggle = showIntermediateStepsToggle && (
     <div>
       <input
@@ -85,9 +90,7 @@ export function ChatWindow(props: {
     onFinish: async (message) => {
       try {
         if (message.role === 'assistant') {
-          const match = message.content.match(
-            /\{(?:[^{}]|{(?:[^{}]|{[^{}]*})*})*\}/
-          );
+          const match = checkIsJson(message.content)
           if (match) {
             const jsonContent = JSON.parse(match[0]);
             // if message comes from a tool, we try to find txBytes and execute it
@@ -191,7 +194,7 @@ export function ChatWindow(props: {
         {messages.length > 0
           ? [...messages].reverse().map((m, i) => {
               const sourceKey = (messages.length - 1 - i).toString();
-              return m.role === 'system' ? (
+              return m.role === 'system' && checkIsJson(m.content) ? (
                 <IntermediateStep key={m.id} message={m}></IntermediateStep>
               ) : (
                 <ChatMessageBubble
