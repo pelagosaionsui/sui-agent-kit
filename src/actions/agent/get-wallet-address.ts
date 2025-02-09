@@ -12,9 +12,9 @@ const getWalletAddressAction: Action = {
         input: {},
         output: {
           status: 'success',
-          address: '0x1234567890abcdef',
+          address: '0x12fefd0c521cb04e42646034af7812229c44789583a22a358f0f9430fb348990',
         },
-        explanation: "The agent's wallet address is 0x1234567890abcdef",
+        explanation: "The agent's wallet address is 0x12fefd0c521cb04e42646034af7812229c44789583a22a358f0f9430fb348990",
       },
     ],
   ],
