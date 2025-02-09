@@ -91,7 +91,7 @@ export async function unstakeBySpringsui(
 
       return JSON.stringify({
         status: 'success',
-        message: 'Unstake completed successfully',
+        message: 'Transaction setup completed successfully. Please sign and execute the transaction',
         txBytes: Buffer.from(txBytes).toString('hex'),
       });
     } else {

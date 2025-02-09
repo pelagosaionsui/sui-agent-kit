@@ -4,6 +4,7 @@ import { isValidSuiTokenAddress } from '../../utils/validate-token-address';
 import { getCoinsFromWallet } from '../../utils/get-coins-from-wallet';
 import { SUIVISION_URL } from '../../constants';
 import { processCoins } from '../../utils/process-coins';
+import { getCoinAmount } from '../../utils/get-coin-amount';
 
 /**
  * Transfers a specified amount of tokens from the agent's wallet to a recipient address.
@@ -30,15 +31,7 @@ export async function transfer(
       throw new Error(`Invalid token address: ${tokenAddress}`);
     }
 
-    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({
-      coinType: tokenAddress,
-    });
-
-    if (!fromCoinAddressMetadata) {
-      throw new Error(`Invalid from coin address: ${tokenAddress}`);
-    }
-
-    const total = BigInt(amount * (10 ** fromCoinAddressMetadata.decimals));
+    const total = await getCoinAmount(agent, amount, tokenAddress);
 
     // Get coins from the wallet
     const selectedCoins = await getCoinsFromWallet(agent, tokenAddress, total);
@@ -73,7 +66,7 @@ export async function transfer(
       const txBytes = await tx.build({ client: agent.suiClient });
       return JSON.stringify({
         status: 'success',
-        message: 'Transfer bytes generated successfully',
+        message: 'Transaction setup completed successfully. Please sign and execute the transaction',
         txBytes: Buffer.from(txBytes).toString('hex'),
       });
     } else {
