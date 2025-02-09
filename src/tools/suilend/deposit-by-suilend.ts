@@ -4,6 +4,8 @@ import {
   LENDING_MARKET_TYPE,
   SuilendClient,
   initializeSuilend,
+  createObligationIfNoneExists,
+  sendObligationToUser,
 } from '@suilend/sdk';
 import { Transaction, TransactionResult } from '@mysten/sui/transactions';
 import { SUIVISION_URL } from '../../constants';
@@ -48,22 +50,11 @@ export async function depositBySuilend(
     // Deposit
     const tx = new Transaction();
 
-    let obligationOwnerCapId: string | TransactionResult;
-
-    // Create obligation if it doesn't exist
-    if (obligationOwnerCaps === undefined || obligationOwnerCaps.length === 0) {
-      // Note: this does not work with wallet, let's try to fix it later
-      await createObligationIfNotExists(agent, suilendClient);
-
-      obligationOwnerCapId = await initializeSuilend(
-        agent.suiClient,
-        suilendClient,
-        agent.walletAddress
-      ).then((res) => res['obligationOwnerCaps']?.[0].id!);
-    } else {
-      // Use existing obligation
-      obligationOwnerCapId = obligationOwnerCaps[0].id;
-    }
+    const { obligationOwnerCapId, didCreate } = createObligationIfNoneExists(
+      suilendClient,
+      tx,
+      obligationOwnerCaps?.[0],
+    );
 
     await suilendClient.depositIntoObligation(
       agent.walletAddress,
@@ -72,6 +63,10 @@ export async function depositBySuilend(
       tx,
       obligationOwnerCapId
     );
+
+    if (didCreate) {
+      sendObligationToUser(obligationOwnerCapId, agent.walletAddress, tx);
+    }
 
     if (agent.keypair) {
       const result = await agent.suiClient.signAndExecuteTransaction({
