@@ -1,6 +1,7 @@
 import { Tool } from "langchain/tools"
 import { SuiAgentKit } from '../../agent';
 import { TOKENS } from "../../constants";
+import { string } from "zod";
 
 export class SuiGetBalanceTool extends Tool {
     name = "sui_balance";
@@ -34,7 +35,7 @@ export class SuiGetBalanceTool extends Tool {
             }
             
             const balance = await this.suiAgentKit.getBalance(tokenAddress);
-
+            
             return JSON.stringify({
                 status: "success",
                 balance,

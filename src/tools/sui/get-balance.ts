@@ -1,6 +1,7 @@
 import { SuiAgentKit } from '../../index';
 import { isValidSuiTokenAddress } from '../../utils/validate-token-address';
 import { TOKENS, MIST_PER_SUI } from '../../constants';
+import BigNumber from "bignumber.js";
 
 /**
  * Retrieves the balance of a specified token for a given agent.
@@ -13,7 +14,7 @@ import { TOKENS, MIST_PER_SUI } from '../../constants';
 export async function getBalance(
   agent: SuiAgentKit,
   tokenAddress?: string
-): Promise<number> {
+): Promise<string> {
   try {
     if (!agent.walletAddress) {
       throw new Error('Wallet not connected');
@@ -23,12 +24,23 @@ export async function getBalance(
       tokenAddress = TOKENS.SUI;
     }
 
+    const fromCoinAddressMetadata = await agent.suiClient.getCoinMetadata({
+      coinType: tokenAddress as string,
+    });
+    
+    if (!fromCoinAddressMetadata) {
+      throw new Error(`Invalid from coin address: ${tokenAddress}`);
+    }
+
     const walletAddress = agent.walletAddress;
     const balanceResponse = await agent.suiClient.getBalance({
       owner: walletAddress,
       coinType: tokenAddress,
     });
-    return Number(balanceResponse.totalBalance) / MIST_PER_SUI;
+ 
+    return BigNumber(balanceResponse.totalBalance)
+      .dividedBy(10 ** fromCoinAddressMetadata.decimals)
+      .toFixed(2).toString();
   } catch (error: any) {
     console.error(
       'Error getting balance:',

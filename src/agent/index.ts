@@ -72,7 +72,7 @@ export class SuiAgentKit {
     return true;
   }
 
-  async getBalance(tokenAddress?: string): Promise<number> {
+  async getBalance(tokenAddress?: string): Promise<string> {
     return getBalance(this, tokenAddress);
   }
 
