@@ -20,7 +20,7 @@
     "@langchain/openai": "^0.3.11",
     "@mysten/sui": "1.20.0",
     "@next/bundle-analyzer": "^13.4.19",
-    "@pelagosai/sui-agent-kit": "0.0.48",
+    "@pelagosai/sui-agent-kit": "latest",
     "@suiet/wallet-kit": "^0.3.4",
     "@supabase/supabase-js": "^2.32.0",
     "@tailwindcss/typography": "^0.5.15",
