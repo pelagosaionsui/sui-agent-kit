@@ -76,7 +76,7 @@ export async function tradeByCetus(
             const txBytes = await tx.build({ client: agent.suiClient });
             return JSON.stringify({
                 status: 'success',
-                message: 'Trade completed successfully',
+                message: 'Transaction setup completed successfully. Please sign and execute the transaction',
                 txBytes: Buffer.from(txBytes).toString('hex'),
             });
         } else {

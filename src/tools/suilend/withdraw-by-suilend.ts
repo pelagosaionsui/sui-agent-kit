@@ -78,7 +78,7 @@ export async function withdrawBySuilend(
       const txBytes = await tx.build({ client: agent.suiClient });
       return JSON.stringify({
         status: 'success',
-        message: 'Withdraw transaction prepared successfully',
+        message: 'Transaction setup completed successfully. Please sign and execute the transaction',
         txBytes: Buffer.from(txBytes).toString('hex'),
       });
     }
