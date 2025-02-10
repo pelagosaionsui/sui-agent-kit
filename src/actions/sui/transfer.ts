@@ -35,7 +35,7 @@ const transferAction: Action = {
     ],
   ],
   schema: z.object({
-    to: z.string().min(32, "Invalid from wallet address"),
+    to: z.string().min(32, "Invalid to wallet address"),
     amount: z.number().positive("Input amount must be positive"),
     tokenAddress: z.string().min(32, "Invalid tokenAddress"),
   }),
