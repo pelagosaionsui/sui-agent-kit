@@ -44,7 +44,7 @@ const transferAction: Action = {
 
     return {
       status: "success",
-      message: "Trade executed successfully",
+      message: "Transfer executed successfully",
       transaction: tx,
       amount: input.amount,
       to: input.to,
