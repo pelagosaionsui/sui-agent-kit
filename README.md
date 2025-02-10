@@ -48,6 +48,19 @@ Note: if you leverage private keys for our toolkit, make sure using it in a secu
 npm install @pelagosai/sui-agent-kit
 ```
 
+```
+import { SuiAgentKit } from "@pelagos/sui-agent-kit";
+ 
+const suiAgent = new SuiAgentKit(
+    WALLET_PRIVATE_KEY,
+    RPC_URL,
+    OPENAI_API_KEY,
+);
+ 
+// Get your sui balance
+const suiBalance = await suiAgent.getBalance();
+```
+
 ## License
 
 Apache-2 License
