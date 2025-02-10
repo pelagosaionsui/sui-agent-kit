@@ -85,7 +85,7 @@ export async function depositBySuilend(
       return JSON.stringify({
         status: 'success',
         message: 'Transaction setup completed successfully. Please sign and execute the transaction.',
-        txbytes: Buffer.from(txBytes).toString('hex'),
+        txBytes: Buffer.from(txBytes).toString('hex'),
       });
     }
   } catch (error: any) {
