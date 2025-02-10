@@ -24,7 +24,8 @@
     "zod": "3.23.8",
     "@suiet/wallet-kit": "0.3.4",
     "react-toastify": "^11.0.3",
-    "@mysten/sui": "1.20.0"
+    "@mysten/sui": "1.20.0",
+    "@pelagosai/sui-agent-kit": "latest"
   },
   "devDependencies": {
     "@types/node": "^17.0.12",

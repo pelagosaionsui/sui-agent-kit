@@ -1,14 +1,9 @@
+import { WalletProvider } from '@/components/WalletProvider';
 import './globals.css';
 import { Inter, Space_Grotesk } from 'next/font/google';
-import { WalletProvider } from './WalletProvider';
-import { Header } from './Header';
-
+import { WalletButton } from '@/components/WalletButton';
+import { Header } from '@/components/Header';
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata = {
-  title: 'AI SDK - Next.js OpenAI Examples',
-  description: 'Examples of using the AI SDK with Next.js and OpenAI.',
-};
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 

@@ -6,20 +6,19 @@ import { useSuiClient, useWallet } from '@suiet/wallet-kit';
 import { JSONValue } from 'ai';
 import { toast } from 'react-toastify';
 import { Transaction } from '@mysten/sui/transactions';
+import { ACTIONS } from '@pelagosai/sui-agent-kit';
 
 export default function Chat() {
   const { signAndExecuteTransaction, address } = useWallet();
   const suiClient = useSuiClient();
+  const actionsKeys = Object.keys(ACTIONS).filter(key => key !== 'WALLET_ADDRESS_ACTION');
 
   const { messages, input, handleInputChange, handleSubmit, addToolResult, setMessages } =
     useChat({
-      api: '/api/use-chat-tools',
+      api: '/api/chat',
       maxSteps: 5,
       experimental_prepareRequestBody: ({messages}) => {
-        const info = { message: JSON.stringify(messages[messages.length - 1]), requestData: address as JSONValue };
-        console.log("experimental_prepareRequestBody");
-        console.log(info);
-        return info;
+        return { message: JSON.stringify(messages[messages.length - 1]), requestData: address as JSONValue };
       },
       // run client-side tools that are automatically executed:
       onToolCall({ toolCall }) {
@@ -29,7 +28,7 @@ export default function Chat() {
         try {
           message.parts?.map(async (part) => {
             if (part.type === 'tool-invocation') {
-              if (part.toolInvocation.toolName === 'TRADE_BY_CETUS_ACTION') {
+              if (actionsKeys.includes(part.toolInvocation.toolName)) {
                 const toolInvocation = part['toolInvocation'];
                 const toolInvocationRes = toolInvocation.state === 'result' ? toolInvocation.result : '';
                 const transaction = JSON.parse(toolInvocationRes.transaction);
