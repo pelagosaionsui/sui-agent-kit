@@ -30,8 +30,8 @@ importers:
         specifier: ^13.4.19
         version: 13.5.8(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@pelagosai/sui-agent-kit':
-        specifier: latest
-        version: 0.0.47(@babel/core@7.26.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@mysten/bcs@1.2.1)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(@types/node@20.12.12)(@types/react@18.3.2)(axios@1.7.4)(bufferutil@4.0.9)(date-fns@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(jsdom@26.0.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.1.6))(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+        specifier: ^0.0.50
+        version: 0.0.50(@babel/core@7.26.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@mysten/bcs@1.2.1)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(@types/node@20.12.12)(@types/react@18.3.2)(axios@1.7.4)(bufferutil@4.0.9)(date-fns@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(jsdom@26.0.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.1.6))(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@suiet/wallet-kit':
         specifier: ^0.3.4
         version: 0.3.4(@mysten/sui@1.20.0(typescript@5.1.6))(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.1.6)
@@ -2025,8 +2025,8 @@ packages:
     resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
     engines: {node: '>=8.0.0'}
 
-  '@pelagosai/sui-agent-kit@0.0.47':
-    resolution: {integrity: sha512-39YK7dOH4EK1HjYZomS5xyCSlM75t7UMmeey+Zga4S90K2ai6QpIH+0+/jTnzKSXEZ6A6DZ0J5FlZRw8H92y+A==}
+  '@pelagosai/sui-agent-kit@0.0.50':
+    resolution: {integrity: sha512-P2PkN3hGBCdTXSCGxT/RjKog/FWAN6VgZ4sL3zjWKXtip0e6oC0tJD8Kx4ysHnDmM+wrEBwNENqVxAGrv+s9Ig==}
     engines: {node: '>=22.0.0', pnpm: '>=8.0.0'}
 
   '@pkgjs/parseargs@0.11.0':
@@ -8048,7 +8048,7 @@ snapshots:
 
   '@opentelemetry/api@1.9.0': {}
 
-  '@pelagosai/sui-agent-kit@0.0.47(@babel/core@7.26.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@mysten/bcs@1.2.1)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(@types/node@20.12.12)(@types/react@18.3.2)(axios@1.7.4)(bufferutil@4.0.9)(date-fns@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(jsdom@26.0.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.1.6))(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
+  '@pelagosai/sui-agent-kit@0.0.50(@babel/core@7.26.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@mysten/bcs@1.2.1)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(@types/node@20.12.12)(@types/react@18.3.2)(axios@1.7.4)(bufferutil@4.0.9)(date-fns@4.1.0)(fastestsmallesttextencoderdecoder@1.0.22)(jsdom@26.0.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.1.6))(typescript@5.1.6)(utf-8-validate@5.0.10)(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))':
     dependencies:
       '@ai-sdk/openai': 1.1.9(zod@3.24.1)
       '@cetusprotocol/aggregator-sdk': 0.3.22(@jest/transform@29.7.0)(@jest/types@29.6.3)(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.1.6))(typescript@5.1.6)(utf-8-validate@5.0.10)
@@ -8063,6 +8063,7 @@ snapshots:
       '@suilend/sdk': 1.1.38(@mysten/bcs@1.2.1)(@mysten/sui@1.20.0(typescript@5.1.6))(@suilend/frontend-sui@0.2.42(@babel/core@7.26.7)(@mysten/sui@1.20.0(typescript@5.1.6))(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(bufferutil@4.0.9)(date-fns@4.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.1.6)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(typescript@5.1.6)(utf-8-validate@5.0.10)
       '@suilend/springsui-sdk': 1.0.19(@mysten/bcs@1.2.1)(@mysten/sui@1.20.0(typescript@5.1.6))
       ai: 4.1.28(react@18.3.1)(zod@3.24.1)
+      bignumber.js: 9.1.2
       bn.js: 5.2.1
       bs58: 6.0.0
       chai: 5.1.2
@@ -8157,7 +8158,7 @@ snapshots:
     dependencies:
       '@pythnetwork/price-service-sdk': 1.8.0
       '@types/ws': 8.5.14
-      axios: 1.7.4(debug@4.4.0)
+      axios: 1.7.9
       axios-retry: 3.9.1
       isomorphic-ws: 4.0.1(ws@8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       ts-log: 2.2.7
@@ -10618,7 +10619,7 @@ snapshots:
       isstream: 0.1.2
       jsonwebtoken: 9.0.2
       mime-types: 2.1.35
-      retry-axios: 2.6.0(axios@1.7.4(debug@4.4.0))
+      retry-axios: 2.6.0(axios@1.7.4)
       tough-cookie: 4.1.4
     transitivePeerDependencies:
       - supports-color
@@ -12111,7 +12112,7 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
-  retry-axios@2.6.0(axios@1.7.4(debug@4.4.0)):
+  retry-axios@2.6.0(axios@1.7.4):
     dependencies:
       axios: 1.7.4(debug@4.4.0)
 
