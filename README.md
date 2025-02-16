@@ -65,4 +65,8 @@ const suiBalance = await suiAgent.getBalance();
 
 Apache-2 License
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=pelagosaionsui/sui-agent-kit&type=Date)](https://star-history.com/#pelagosaionsui/sui-agent-kit&Date)
+
 
