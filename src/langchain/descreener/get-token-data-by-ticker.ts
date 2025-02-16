@@ -18,10 +18,7 @@ export class DescreenerTokenDataByTickerTool extends Tool{
 
   protected async _call(input: string): Promise<string> {
     try {
-      console.log("DescreenerTokenDataByTickerTool", input);
       const parsedInput = JSON.parse(input);
-      console.log("parsedInput", parsedInput);
-
       const tokenData = await this.suiAgentKit.getTokenDataByTicker(parsedInput.tokenTicker);      
       
       return JSON.stringify({

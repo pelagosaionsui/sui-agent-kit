@@ -18,10 +18,7 @@ export class DescreenerTokenDataByAddressTool extends Tool{
 
   protected async _call(input: string): Promise<string> {
     try {
-      console.log("DescreenerTokenDataByAddressTool", input);
       const parsedInput = JSON.parse(input);
-      console.log("parsedInput", parsedInput);
-
       const tokenData = await this.suiAgentKit.getTokenDataByAddress(parsedInput.tokenAddress);      
       
       return JSON.stringify({

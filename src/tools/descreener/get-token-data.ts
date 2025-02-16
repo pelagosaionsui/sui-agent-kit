@@ -9,7 +9,6 @@ export async function getTokenDataByAddress(
   tokenAddress: string
 ): Promise<any> {
   try {
-    console.log("getTokenDataByAddress", tokenAddress);
     if (!tokenAddress) {
       throw new Error("Token is required for fetching token data");
     }
@@ -37,7 +36,6 @@ export async function getTokenDataByAddress(
 export async function getTokenDataByTicker(
   ticker: string
 ): Promise<any> {
-  console.log("getTokenDataByTicker", ticker);
   const address = await getTokenAddressFromTicker(ticker);
   if (!address) {
     throw new Error(`Token address not found for ticker: ${ticker}`);
@@ -57,12 +55,10 @@ export async function getTokenAddressFromTicker(
   ticker: string
 ): Promise<string> {
   try {
-    console.log("getTokenAddressFromTicker", ticker);
     const response = await fetch(
       `https://api.dexscreener.com/latest/dex/search?q=${ticker}`,
     );
     const data = await response.json();
-    console.log("data", data);
 
     if (!data.pairs || data.pairs.length === 0) {
       return "";
