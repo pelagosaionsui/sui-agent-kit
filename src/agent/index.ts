@@ -10,6 +10,9 @@ import {
   stakeBySpringsui,
   depositBySuilend,
   borrowBySuilend,
+  getTokenDataByAddress,
+  getTokenDataByTicker,
+  getTokenAddressFromTicker,
 } from '../tools';
 import { withdrawBySuilend } from '../tools/suilend/withdraw-by-suilend';
 import { repayBySuilend } from '../tools/suilend/repay-by-suilend';
@@ -129,5 +132,17 @@ export class SuiAgentKit {
 
   async repayBySuilend(coinType: string, amount: number): Promise<string> {
     return repayBySuilend(this, coinType, amount);
+  }
+
+  async getTokenDataByAddress(tokenAddress: string): Promise<any> {
+    return getTokenDataByAddress(tokenAddress);
+  }
+
+  async getTokenDataByTicker(ticker: string): Promise<any> {
+    return getTokenDataByTicker(ticker);
+  }
+
+  async getTokenAddressFromTicker(ticker: string): Promise<string> {
+    return getTokenAddressFromTicker(ticker);
   }
 }
