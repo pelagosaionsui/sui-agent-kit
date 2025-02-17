@@ -58,6 +58,23 @@ export async function fetchPythPriceFeedID(
   }
 }
 
+/**
+ * Fetches the latest price for a given Pyth price feed ID.
+ * 
+ * This function queries the Pyth Hermes Service API to retrieve the latest price
+ * data for a specified feed ID. It processes the response to extract and calculate
+ * the price using the provided exponent.
+ *
+ * @param feedID - The Pyth price feed ID to look up
+ * @returns A promise that resolves to the calculated price as a string
+ * @throws {Error} If no price data is found for the feed ID or if the API request fails
+ *
+ * @example
+ * ```typescript
+ * const price = await fetchPythPrice("ff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace");
+ * // Returns a string representation of the price
+ * ```
+ */
 export async function fetchPythPrice(feedID: string): Promise<string> {
   try {
     const response = await fetch(
@@ -81,6 +98,23 @@ export async function fetchPythPrice(feedID: string): Promise<string> {
   }
 }
 
+/**
+ * Fetches the latest EMA (Exponential Moving Average) price for a given Pyth price feed ID.
+ * 
+ * This function queries the Pyth Hermes Service API to retrieve the latest EMA price
+ * data for a specified feed ID. It processes the response to extract and calculate
+ * the EMA price using the provided exponent.
+ *
+ * @param feedID - The Pyth price feed ID to look up
+ * @returns A promise that resolves to the calculated EMA price as a string
+ * @throws {Error} If no EMA price data is found for the feed ID or if the API request fails
+ *
+ * @example
+ * ```typescript
+ * const emaPrice = await fetchPythEMAPrice("ff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace");
+ * // Returns a string representation of the EMA price
+ * ```
+ */
 export async function fetchPythEMAPrice(feedID: string): Promise<string> {
   try {
     const response = await fetch(
@@ -104,6 +138,23 @@ export async function fetchPythEMAPrice(feedID: string): Promise<string> {
   }
 }
 
+/**
+ * Calculates the adjusted price based on the given price and exponent.
+ * 
+ * This function adjusts the price by dividing it by 10 raised to the power of the exponent.
+ * If the exponent is negative, it multiplies the price by 10 raised to the absolute value
+ * of the exponent.
+ *
+ * @param price - The price as a BigNumber
+ * @param exponent - The exponent to adjust the price
+ * @returns A promise that resolves to the adjusted price as a string
+ *
+ * @example
+ * ```typescript
+ * const adjustedPrice = await calculatePrice(new BigNumber(123456), -2);
+ * // Returns "1234.56"
+ * ```
+ */
 async function calculatePrice(price: BigNumber, exponent: number): Promise<string> {
   if (exponent < 0) {
     const divisor = BigNumber(10).pow(-exponent);
