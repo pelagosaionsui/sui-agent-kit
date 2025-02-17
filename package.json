@@ -1,6 +1,6 @@
 {
   "name": "@pelagosai/sui-agent-kit",
-  "version": "0.0.51",
+  "version": "0.0.52",
   "description": "AI Agent Kit for Sui Protocols",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

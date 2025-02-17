@@ -3,3 +3,4 @@ export * from "./cetus";
 export * from "./suilend";
 export * from "./navi";
 export * from "./descreener";
+export * from "./pyth";
