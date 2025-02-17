@@ -5,8 +5,13 @@ export class DescreenerTokenDataByAddressTool extends Tool{
   name = "get_token_data_by_address_from_descreener";
   description = `Get token data from DexScreener by token address.
 
-  Input (input is a JSON string):
+  Input format is a JSON string, containing below fields:
   - tokenAddress: string, the token address to fetch data. Example: "0xf22da9a24ad027cccb5f2d496cbe91de953d363513db08a3a734d361c7c17503::LOFI::LOFI" (required)
+
+  Example input:
+  {
+    "tokenAddress": "0xf22da9a24ad027cccb5f2d496cbe91de953d363513db08a3a734d361c7c17503::LOFI::LOFI"
+  }
 
   DO NOT UNDER ANY CIRCUMSTANCES STRAY FROM THE INPUT FORMAT
   CONVERT YOUR INPUT WITH INPUT FORMAT AND PARAMS IN THE EXACT ORDER.

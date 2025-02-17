@@ -13,6 +13,9 @@ import {
   getTokenDataByAddress,
   getTokenDataByTicker,
   getTokenAddressFromTicker,
+  fetchPythPriceFeedID,
+  fetchPythPrice, 
+  fetchPythEMAPrice,
 } from '../tools';
 import { withdrawBySuilend } from '../tools/suilend/withdraw-by-suilend';
 import { repayBySuilend } from '../tools/suilend/repay-by-suilend';
@@ -144,5 +147,17 @@ export class SuiAgentKit {
 
   async getTokenAddressFromTicker(ticker: string): Promise<string> {
     return getTokenAddressFromTicker(ticker);
+  }
+
+  async fetchPythPriceFeedID(ticker: string): Promise<string> {
+    return fetchPythPriceFeedID(ticker);
+  }
+
+  async fetchPythPrice(feedID: string): Promise<string> {
+    return fetchPythPrice(feedID);
+  }
+
+  async fetchPythEMAPrice(feedID: string): Promise<string> {
+    return fetchPythEMAPrice(feedID);
   }
 }

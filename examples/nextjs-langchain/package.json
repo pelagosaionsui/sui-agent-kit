@@ -19,7 +19,7 @@
     "@langchain/openai": "^0.3.11",
     "@langchain/deepseek": "^0.0.1",
     "@next/bundle-analyzer": "^13.4.19",
-    "@pelagosai/sui-agent-kit": "^0.0.50",
+    "@pelagosai/sui-agent-kit": "latest",
     "@supabase/supabase-js": "^2.32.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "20.12.12",

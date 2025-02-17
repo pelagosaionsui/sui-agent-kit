@@ -4,7 +4,7 @@ export * from './cetus';
 export * from './navi';
 export * from './suilend';
 export * from './descreener';
-
+export * from './pyth';
 import type { SuiAgentKit } from '../agent';
 import { SuiSetWalletAddressTool } from './agent';
 
@@ -21,7 +21,9 @@ import {
   SuiSuilendWithdrawTool,
   SuiSuilendRepayTool,
   DescreenerTokenDataByAddressTool,
-  DescreenerTokenDataByTickerTool
+  DescreenerTokenDataByTickerTool,
+  PythPriceTool,
+  PythEMAPriceTool,
 } from './index';
 
 export function createSuiTools(suiAgentKit: SuiAgentKit) {
@@ -40,5 +42,7 @@ export function createSuiTools(suiAgentKit: SuiAgentKit) {
     new SuiSuilendRepayTool(suiAgentKit),
     new DescreenerTokenDataByAddressTool(suiAgentKit),
     new DescreenerTokenDataByTickerTool(suiAgentKit),
+    new PythPriceTool(suiAgentKit),
+    new PythEMAPriceTool(suiAgentKit),
   ];
 }

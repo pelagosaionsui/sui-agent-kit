@@ -15,7 +15,7 @@
     "@langchain/langgraph": "^0.2.0",
     "@langchain/openai": "^0.3.11",
     "dotenv": "^16.4.7",
-    "@pelagosai/sui-agent-kit": "^0.0.50",
+    "@pelagosai/sui-agent-kit": "latest",
     "zod": "^3.24.1"
   },
   "devDependencies": {

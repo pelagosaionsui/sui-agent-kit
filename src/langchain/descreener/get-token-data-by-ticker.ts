@@ -5,8 +5,13 @@ export class DescreenerTokenDataByTickerTool extends Tool{
   name = "get_token_data_by_ticker_from_descreener";
   description = `Get token data from DexScreener by token ticker.
 
-  Input (input is a JSON string):
+  Input format is a JSON string, containing below fields:
   - tokenTicker: string, the token ticker to fetch data. Example: "LOFI" (required)
+
+  Example input:
+  {
+    "tokenTicker": "LOFI"
+  }
 
   DO NOT UNDER ANY CIRCUMSTANCES STRAY FROM THE INPUT FORMAT
   CONVERT YOUR INPUT WITH INPUT FORMAT AND PARAMS IN THE EXACT ORDER.
